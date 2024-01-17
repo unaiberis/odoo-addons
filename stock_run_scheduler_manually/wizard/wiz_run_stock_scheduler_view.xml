@@ -5,7 +5,7 @@
             <field name="arch" type="xml">
                 <form string="Run manually scheduled for selected reordering rules">
                     <group>
-                        <field name="use_new_cursor" required="1" colspan="4" />
+                        <field name="use_new_cursor" required="True" colspan="4" />
                     </group>
                     <footer>
                         <button
@@ -24,16 +24,14 @@
                 </form>
             </field>
         </record>
-        <act_window
-      id="action_wiz_hr_attendance_anomaly"
-      multi="True"
-      key2="client_action_multi"
-      name="Run manually scheduler"
-      res_model="wiz.run.stock.scheduler"
-      binding_model="stock.warehouse.orderpoint"
-      view_mode="form"
-      target="new"
-      view_type="form"
-    />
+
+        <record id="action_wiz_hr_attendance_anomaly" model="ir.actions.act_window">
+            <field name="name">Run manually scheduler</field>
+            <field name="res_model">wiz.run.stock.scheduler</field>
+            <field name="binding_model_id" ref="stock.model_stock_warehouse_orderpoint" />
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="stock_run_scheduler_manually.wiz_run_stock_scheduler_view_form"/>
+        </record>
     </data>
 </odoo>

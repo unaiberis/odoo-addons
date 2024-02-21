@@ -8,5 +8,9 @@ class IrActionsServer(models.Model):
     _inherit = "ir.actions.server"
 
     groups_id = fields.Many2many(
-        comodel_name="res.groups", relation="ir_actions_server_groups_rel",
-        column1="action_id", column2="group_id", string="Groups")
+        comodel_name="res.groups",
+        relation="ir_actions_server_groups_rel",
+        column1="action_id",
+        column2="group_id",
+        string="Groups",
+    )

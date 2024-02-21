@@ -2,7 +2,6 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
-from odoo.addons import decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
@@ -43,11 +42,11 @@ class ProductTemplate(models.Model):
         copy=False)
     my_standard_price = fields.Float(
         string='Total cost (base + extra)', default=1.0, copy=False,
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         help="Price at which the product is sold to customers.")
     my_list_price = fields.Float(
         string='Sales Price', default=1.0, copy=False,
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         help="Price at which the product is sold to customers.")
     separator_1 = fields.Char(
         string="||", default="||")
@@ -61,10 +60,10 @@ class ProductTemplate(models.Model):
         string='New Product category sale price',
         comodel_name='product.category.sale.price', copy=False)
     new_sale_price = fields.Float(
-        string="New sale price", digits=dp.get_precision('Product Price'),
+        string="New sale price", digits='Product Price',
         default=0.0, copy=False)
     my_new_sale_price = fields.Float(
-        string="New sale price", digits=dp.get_precision('Product Price'),
+        string="New sale price", digits='Product Price',
         default=0.0, copy=False)
     last_new_sale_price_change_date = fields.Date(
         string='Last change date new sale price', copy=False)
@@ -89,7 +88,6 @@ class ProductTemplate(models.Model):
         for template in self:
             template.template_attributes_count = 0
 
-    @api.multi
     def _compute_only_read_prices(self):
         group = self.env.ref(
             'product_sale_configuration.allow_change_sale_price', False)
@@ -202,7 +200,6 @@ class ProductTemplate(models.Model):
             template.put_template_info_in_product()
         return template
 
-    @api.multi
     def write(self, values):
         keys = values.keys()
         if ('update_base_cost' not in self.env.context and len(keys) == 1 and
@@ -244,7 +241,6 @@ class ProductTemplate(models.Model):
                     template.put_template_info_in_product()
         return result
 
-    @api.multi
     def _get_combination_info(self, combination=False, product_id=False,
                               add_qty=1, pricelist=False,
                               parent_combination=False, only_template=False):
@@ -326,11 +322,9 @@ class ProductProduct(models.Model):
             product.template_attributes_count = len(
                 product.product_tmpl_id.attribute_line_ids)
 
-    @api.multi
     def _inverse_product_lst_price(self):
         pass
 
-    @api.multi
     @api.depends('fix_price')
     def _compute_lst_price(self):
         uom_model = self.env['uom.uom']
@@ -341,7 +335,6 @@ class ProductProduct(models.Model):
                     price, uom_model.browse(self.env.context['uom']))
             product.lst_price = price
 
-    @api.multi
     def _compute_list_price(self):
         uom_model = self.env['uom.uom']
         for product in self:

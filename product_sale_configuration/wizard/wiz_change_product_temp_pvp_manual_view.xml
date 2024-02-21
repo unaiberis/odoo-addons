@@ -18,7 +18,7 @@
         <act_window id="action_wiz_change_product_temp_pvp_manual_sale_price"
             multi="False"
             key2="client_action_multi" name="Change PsP manual in products"
-            res_model="wiz.change.product.temp.pvp.manual" src_model="product.template"
+            res_model="wiz.change.product.temp.pvp.manual" binding_model="product.template"
             view_mode="form" target="new" view_type="form"
             groups="product_sale_configuration.allow_change_sale_price"/>
     </data>

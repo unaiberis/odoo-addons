@@ -18,12 +18,10 @@ class ProductCategorySalePrice(models.Model):
         string='Products', compute='_compute_count_products')
     sequence = fields.Integer(string='Sequence', default=10)
 
-    @api.multi
     def _compute_count_products(self):
         for cat in self:
             cat.count_products = len(cat.product_ids)
 
-    @api.multi
     def name_get(self):
         res = []
         for price in self:
@@ -32,7 +30,6 @@ class ProductCategorySalePrice(models.Model):
             res.append((price.id, name))
         return res
 
-    @api.multi
     def button_show_products(self):
         self.ensure_one()
         return {'name': _('Products'),
@@ -42,7 +39,6 @@ class ProductCategorySalePrice(models.Model):
                 'res_model': 'product.product',
                 'domain': [('id', 'in', self.product_ids.ids)]}
 
-    @api.multi
     def write(self, vals):
         result = super(ProductCategorySalePrice, self).write(vals)
         if 'percentage' in vals or 'fixed_amount' in vals:

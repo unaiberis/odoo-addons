@@ -45,7 +45,7 @@
       ref="product_sale_configuration.product_search_form_view"
     />
         <field name="arch" type="xml">
-            <filter name="filter-manual-pvp" position="before">
+            <field name="attribute_line_ids" position="before">
                 <filter
           string="Line in green"
           name="filter_product_green"
@@ -67,7 +67,7 @@
           domain="[('product_color','=','none')]"
         />
                 <separator />
-            </filter>
+            </field>
             <filter name="group-manual_pvp" position="after">
                 <filter
           string="Line color"

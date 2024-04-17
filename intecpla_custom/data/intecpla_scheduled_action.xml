@@ -7,7 +7,7 @@
         <field name="interval_type">months</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False" />
-        <field name="model_id" ref="account.model_account_invoice_line" />
+        <field name="model_id" ref="account.model_account_move_line" />
         <field name="code">model._ir_cron_fix_sale_order_section()</field>
         <field name="state">code</field>
     </record>

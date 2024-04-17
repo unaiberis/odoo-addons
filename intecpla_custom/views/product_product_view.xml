@@ -45,7 +45,7 @@
       ref="product_sale_configuration.product_search_form_view"
     />
         <field name="arch" type="xml">
-            <field name="attribute_line_ids" position="before">
+            <field name="product_template_attribute_value_ids" position="before">
                 <filter
           string="Line in green"
           name="filter_product_green"

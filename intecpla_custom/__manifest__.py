@@ -8,7 +8,7 @@
         "stock",
         "sale_order_line_inventory",
         "hr",
-        "purchase_discount",
+        "purchase_discount", # oca/purchase-workflow
         "repair_calendar_view",
         "product_supplier_code_purchase",
         "account_payment_mode",

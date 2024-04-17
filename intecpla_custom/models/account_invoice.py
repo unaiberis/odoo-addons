@@ -9,7 +9,7 @@ from odoo.exceptions import UserError
 
 
 class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+    _inherit = "account.move"
 
     def action_invoice_open(self):
         invoices = self.filtered(lambda x: x.type == "in_invoice" and x.reference)
@@ -21,7 +21,7 @@ class AccountInvoice(models.Model):
                     ("type", "=", "in_invoice"),
                     ("id", "!=", invoice.id),
                 ]
-                invs = self.env["account.invoice"].search(cond)
+                invs = self.env["account.move"].search(cond)
                 if invs:
                     for inv in invs:
                         if (
@@ -67,7 +67,7 @@ class AccountInvoice(models.Model):
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = "account.invoice.line"
+    _inherit = "account.move.line"
 
     sale_order_section = fields.Char(string="Sale order section")
     repair_order_section = fields.Text(string="Repair order section")
@@ -80,7 +80,7 @@ class AccountInvoiceLine(models.Model):
 
     @api.model
     def create(self, values):
-        line_obj = self.env["account.invoice.line"]
+        line_obj = self.env["account.move.line"]
         if (
             "create_sale_order_section" not in self.env.context
             and "create_mrp_order_section" not in self.env.context

@@ -13,7 +13,7 @@ class ProductTemplate(models.Model):
 
     def init(self):
         _logger.info("Initializing product template image update process...")
-        image_folder = '/path/to/images'
+        image_folder = '/tmp/imagenes_descargadas'
         for filename in os.listdir(image_folder):
             if filename.endswith(('.png', '.jpg', '.jpeg')):
                 image_path = os.path.join(image_folder, filename)

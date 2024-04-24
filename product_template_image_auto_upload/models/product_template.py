@@ -25,7 +25,7 @@ class ProductTemplate(models.Model):
                     # If product template not found, remove everything after the last dash and try again
                     while '-' in image_name:
                         image_name = image_name.rsplit('-', 1)[0]
-                        product_template = self.env['product.template'].search([('name', '=', image_name)], limit=1)
+                        product_template = self.env['product.template'].search([('name', 'like', image_name)], limit=1)
                         if product_template:
                             _logger.info(f"Found matching product template for image: {filename}")
                             break

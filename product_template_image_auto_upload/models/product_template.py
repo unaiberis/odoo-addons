@@ -19,24 +19,28 @@ class ProductTemplate(models.Model):
                 image_path = os.path.join(image_folder, filename)
                 image_name = os.path.splitext(filename)[0]
                 _logger.info(f"Processing image: {filename}")
-                product_template = self.env['product.template'].search([('name', '=', image_name)], limit=1)
-                if not product_template:
+                product_templates = self.env['product.template'].search([('name', '=', image_name)])
+                if not product_templates:
                     _logger.info(f"Product template not found for image: {filename}")
                     # If product template not found, remove everything after the last dash and try again
                     while '-' in image_name:
                         image_name = image_name.rsplit('-', 1)[0]
-                        product_template = self.env['product.template'].search([('name', 'like', image_name)], limit=1)
-                        if product_template:
+                        product_templates = self.env['product.template'].search([('name', 'like', image_name)])
+                        if product_templates:
                             _logger.info(f"Found matching product template for image: {filename}")
                             break
                     else:
                         _logger.warning(f"No matching product template found for image: {filename}")
-                if product_template:
+                for product_template in product_templates:
                     try:
                         # Open the image
                         with Image.open(image_path) as img:
-                            # Resize the image to 90x90 resolution
-                            img = img.resize((90, 90))
+                            # Get the dimensions of the image
+                            width, height = img.size
+                            # Determine the smallest dimension
+                            min_dimension = min(width, height)
+                            # Resize the image to a square shape using the smallest dimension
+                            img = img.resize((min_dimension, min_dimension))
                             # Convert image to RGB (if not already in RGB mode)
                             img = img.convert('RGB')
                             # Create a BytesIO object to hold the compressed image data

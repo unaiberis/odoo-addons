@@ -13,6 +13,16 @@ class ProductTemplate(models.Model):
 
     def init(self):
         _logger.info("Initializing product template image update process...")
+        
+        # Global variable to control whether to remove existing images
+        remove_existing_images = True
+        
+        if remove_existing_images:
+            _logger.info("Removing existing images for all products...")
+            # Remove images for all products
+            self.env['product.template'].search([]).write({'image_1920': False})
+            _logger.info("Existing images removed.")
+        
         image_folder = '/tmp/imagenes_descargadas'
         for filename in os.listdir(image_folder):
             if filename.endswith(('.png', '.jpg', '.jpeg')):
@@ -25,7 +35,7 @@ class ProductTemplate(models.Model):
                     # If product template not found, remove everything after the last dash and try again
                     while '-' in image_name:
                         image_name = image_name.rsplit('-', 1)[0]
-                        product_templates = self.env['product.template'].search([('name', 'like', image_name)])
+                        product_templates = self.env['product.template'].search(['|', '|', ('name', 'ilike', f' {image_name} '), ('name', 'ilike', f'%{image_name} '), ('name', 'ilike', f' {image_name}%')])
                         if product_templates:
                             _logger.info(f"Found matching product template for image: {filename}")
                             break

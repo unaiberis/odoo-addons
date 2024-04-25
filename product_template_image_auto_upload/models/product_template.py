@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
         _logger.info("Initializing product template image update process...")
         
         # Global variable to control whether to remove existing images
-        remove_existing_images = True
+        remove_existing_images = False
         
         if remove_existing_images:
             _logger.info("Removing existing images for all products...")

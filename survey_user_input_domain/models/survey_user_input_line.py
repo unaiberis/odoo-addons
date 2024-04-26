@@ -24,7 +24,7 @@ class SurveyUserInputLine(models.Model):
     def _compute_matrix_question_id(self):
         for line in self:
             if line.matrix_row_id:
-                new_value = line.matrix_row_id.matrix_question_id.id
+                new_value = line.matrix_row_id.matrix_question_id.matrix_row_ids.id
                 _logger.info(f"2024okdeb - Changing calculated_matrix_question_id for line {line.id} to {new_value}")
 
                 if line.calculated_matrix_question_id != new_value:
@@ -42,7 +42,7 @@ class SurveyUserInputLine(models.Model):
     def _compute_suggested_answer_id(self):
         for line in self:
             if line.question_id:
-                new_value = line.suggested_answer_id.question_id.id
+                new_value = line.suggested_answer_id.question_id.suggested_answer_ids.id
                 _logger.info(f"2024okdeb - Changing calculated_matrix_question_id for line {line.id} to {new_value}")
 
                 if line.calculated_suggested_answer_question_id != new_value:

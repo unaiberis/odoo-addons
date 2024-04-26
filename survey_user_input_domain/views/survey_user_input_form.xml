@@ -13,10 +13,11 @@
                 <field name="matrix_row_id" position="attributes">
                     <attribute name="domain">"[('question_id', '=', record.matrix_row_id.question_id)]"</attribute>
                 </field> -->
+                <field name="suggested_answer_id" position="after">
 
-                <field name="calculated_suggested_answer_question_id" invisible="1"/>
-                <field name="calculated_matrix_question_id" invisible="1"/>
-
+                    <field name="calculated_suggested_answer_question_id" invisible="1"/>
+                    <field name="calculated_matrix_question_id" invisible="1"/>
+                </field>
                 <field name="suggested_answer_id" position="attributes">
                     <attribute name="domain">"[('suggested_answer_id', 'in', calculated_suggested_answer_question_id)]"</attribute>
                 </field>

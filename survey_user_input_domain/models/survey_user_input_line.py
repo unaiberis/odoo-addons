@@ -20,7 +20,7 @@ class SurveyUserInputLine(models.Model):
         store=True 
     )
 
-    def initialize_survey_user_input_line(self):
+    def init(self):
         _logger.info("2024okdeb - Initializing SurveyUserInputLine model")
         self._compute_matrix_question_id()
         self._compute_suggested_answer_id()

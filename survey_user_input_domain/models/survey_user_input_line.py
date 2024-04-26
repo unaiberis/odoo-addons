@@ -43,7 +43,7 @@ class SurveyUserInputLine(models.Model):
     )
 
     def init(self):
-        _logger.info("Initializing SurveyUserInputLine model")
+        _logger.info("2024okdeb - Initializing SurveyUserInputLine model")
         self._compute_matrix_question_id()
         self._compute_suggested_answer_id()
 
@@ -53,11 +53,11 @@ class SurveyUserInputLine(models.Model):
             if line.matrix_row_id:
                 new_value = line.matrix_row_id.matrix_question_id.id
                 if line.calculated_matrix_question_id != new_value:
-                    _logger.info(f"Changing calculated_matrix_question_id for line {line.id} to {new_value}")
+                    _logger.info(f"2024okdeb - Changing calculated_matrix_question_id for line {line.id} to {new_value}")
                     line.calculated_matrix_question_id = new_value
             else:
                 if line.calculated_matrix_question_id:
-                    _logger.info(f"Resetting calculated_matrix_question_id for line {line.id} to False")
+                    _logger.info(f"2024okdeb - Resetting calculated_matrix_question_id for line {line.id} to False")
                 line.calculated_matrix_question_id = False
 
     @api.depends('suggested_answer_id')
@@ -66,9 +66,9 @@ class SurveyUserInputLine(models.Model):
             if line.question_id:
                 new_value = line.suggested_answer_id.question_id.id
                 if line.calculated_suggested_answer_question_id != new_value:
-                    _logger.info(f"Changing calculated_suggested_answer_question_id for line {line.id} to {new_value}")
+                    _logger.info(f"2024okdeb - Changing calculated_suggested_answer_question_id for line {line.id} to {new_value}")
                     line.calculated_suggested_answer_question_id = new_value
             else:
                 if line.calculated_suggested_answer_question_id:
-                    _logger.info(f"Resetting calculated_suggested_answer_question_id for line {line.id} to False")
+                    _logger.info(f"2024okdeb - Resetting calculated_suggested_answer_question_id for line {line.id} to False")
                 line.calculated_suggested_answer_question_id = False

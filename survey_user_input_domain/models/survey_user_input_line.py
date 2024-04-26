@@ -10,21 +10,23 @@ class SurveyUserInputLine(models.Model):
         'survey.question.answer', 
         string='Matrix Question ID',
         compute='_compute_matrix_question_id',
-        store=True 
+        store=True,
+        relation='survey_user_input_line_matrix_rel'  # Use a unique relation name
     )
     
     calculated_suggested_answer_question_id = fields.Many2many(
         'survey.question.answer', 
         string='Suggested Answer ID',
         compute='_compute_suggested_answer_id',
-        store=True 
+        store=True,
+        relation='survey_user_input_line_suggested_rel'  # Use a unique relation name
     )
 
     @api.depends('matrix_row_id')
     def _compute_matrix_question_id(self):
         for line in self:
             if line.matrix_row_id:
-                new_value = line.matrix_row_id.matrix_question_id.matrix_row_ids.id
+                new_value = line.matrix_row_id.matrix_question_id.matrix_row_ids
                 _logger.info(f"2024okdeb - Changing calculated_matrix_question_id for line {line.id} to {new_value}")
 
                 if line.calculated_matrix_question_id != new_value:
@@ -42,7 +44,7 @@ class SurveyUserInputLine(models.Model):
     def _compute_suggested_answer_id(self):
         for line in self:
             if line.question_id:
-                new_value = line.suggested_answer_id.question_id.suggested_answer_ids.id
+                new_value = line.suggested_answer_id.question_id.suggested_answer_ids
                 _logger.info(f"2024okdeb - Changing calculated_matrix_question_id for line {line.id} to {new_value}")
 
                 if line.calculated_suggested_answer_question_id != new_value:

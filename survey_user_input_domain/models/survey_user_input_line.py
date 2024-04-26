@@ -6,14 +6,14 @@ _logger = logging.getLogger(__name__)
 class SurveyUserInputLine(models.Model):
     _inherit = 'survey.user_input.line'
 
-    calculated_matrix_question_id = fields.Many2Many(
+    calculated_matrix_question_id = fields.Many2many(
         'survey.question.answer', 
         string='Matrix Question ID',
         compute='_compute_matrix_question_id',
         store=True 
     )
     
-    calculated_suggested_answer_question_id = fields.Many2Many(
+    calculated_suggested_answer_question_id = fields.Many2many(
         'survey.question.answer', 
         string='Suggested Answer ID',
         compute='_compute_suggested_answer_id',

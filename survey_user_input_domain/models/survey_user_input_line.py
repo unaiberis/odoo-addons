@@ -20,16 +20,13 @@ class SurveyUserInputLine(models.Model):
         store=True 
     )
 
-    def init(self):
-        _logger.info("2024okdeb - Initializing SurveyUserInputLine model")
-        self._compute_matrix_question_id()
-        self._compute_suggested_answer_id()
-
     @api.depends('matrix_row_id')
     def _compute_matrix_question_id(self):
         for line in self:
             if line.matrix_row_id:
                 new_value = line.matrix_row_id.matrix_question_id.id
+                _logger.info(f"2024okdeb - Changing calculated_matrix_question_id for line {line.id} to {new_value}")
+
                 if line.calculated_matrix_question_id != new_value:
                     _logger.info(f"2024okdeb - Changing calculated_matrix_question_id for line {line.id} to {new_value}")
                     line.calculated_matrix_question_id = new_value
@@ -46,6 +43,8 @@ class SurveyUserInputLine(models.Model):
         for line in self:
             if line.question_id:
                 new_value = line.suggested_answer_id.question_id.id
+                _logger.info(f"2024okdeb - Changing calculated_matrix_question_id for line {line.id} to {new_value}")
+
                 if line.calculated_suggested_answer_question_id != new_value:
                     _logger.info(f"2024okdeb - Changing calculated_suggested_answer_question_id for line {line.id} to {new_value}")
                     line.calculated_suggested_answer_question_id = new_value

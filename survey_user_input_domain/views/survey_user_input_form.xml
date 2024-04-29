@@ -15,17 +15,16 @@
                 </field> -->
                 <field name="suggested_answer_id" position="after">
 
-                    <field name="calculated_suggested_answer_question_id" />
-                    <field name="calculated_matrix_question_id" />
+                    <field name="calculated_suggested_answer_question_id" widget="many2many_tags" />
+                    <field name="calculated_matrix_question_id" widget="many2many_tags" />
                 </field>
                 <field name="suggested_answer_id" position="attributes">
-                    <attribute name="domain">"[('suggested_answer_id', 'in', calculated_suggested_answer_question_id)]"</attribute>
+                    <attribute name="domain">"[('id', 'in', calculated_suggested_answer_question_id)]"</attribute>
                 </field>
 
                 <field name="matrix_row_id" position="attributes">
-                    <attribute name="domain">"[('matrix_row_id', '=', calculated_matrix_question_id)]"</attribute>
+                    <attribute name="domain">"[('id', 'in', calculated_matrix_question_id)]"</attribute>
                 </field>
-
             </field>
         </record>
     </data>

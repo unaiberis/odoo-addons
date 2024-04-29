@@ -15,8 +15,8 @@
                 </field> -->
                 <field name="suggested_answer_id" position="after">
 
-                    <field name="calculated_suggested_answer_question_id" invisible="1"/>
-                    <field name="calculated_matrix_question_id" invisible="1"/>
+                    <field name="calculated_suggested_answer_question_id" />
+                    <field name="calculated_matrix_question_id" />
                 </field>
                 <field name="suggested_answer_id" position="attributes">
                     <attribute name="domain">"[('suggested_answer_id', 'in', calculated_suggested_answer_question_id)]"</attribute>

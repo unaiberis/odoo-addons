@@ -18,13 +18,13 @@
                     <field name="calculated_suggested_answer_question_id" widget="many2many_tags" />
                     <field name="calculated_matrix_question_id" widget="many2many_tags" />
                 </field>
-                <field name="suggested_answer_id" position="attributes">
+                <!-- <field name="suggested_answer_id" position="attributes">
                     <attribute name="domain">"[('id', 'in', calculated_suggested_answer_question_id)]"</attribute>
                 </field>
 
                 <field name="matrix_row_id" position="attributes">
                     <attribute name="domain">"[('id', 'in', calculated_matrix_question_id)]"</attribute>
-                </field>
+                </field> -->
             </field>
         </record>
     </data>

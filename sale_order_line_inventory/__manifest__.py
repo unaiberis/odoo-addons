@@ -7,7 +7,7 @@
     "category": "Banking addons",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "https://github.com/avanzosc/odoo-addons",
+    "website": "http://www.avanzosc.es",
     "depends": ["sale_stock"],
     "data": [
         "views/sale_order_view.xml",

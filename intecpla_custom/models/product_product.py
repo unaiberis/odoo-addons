@@ -96,7 +96,7 @@ class ProductProduct(models.Model):
                 "name",
                 "default_code",
                 "product_tmpl_id",
-                "attribute_value_ids",
+                "bom_product_template_attribute_value_ids",
                 "attribute_line_ids",
             ],
             load=False,
@@ -106,7 +106,7 @@ class ProductProduct(models.Model):
             variable_attributes = product.attribute_line_ids.filtered(
                 lambda l: len(l.value_ids) > 1
             ).mapped("attribute_id")
-            variant = product.attribute_value_ids._variant_name(variable_attributes)
+            variant = product.bom_product_template_attribute_value_ids._variant_name(variable_attributes)
             name = variant and "%s (%s)" % (product.name, variant) or product.name
             mydict = {
                 "id": product.id,

@@ -103,9 +103,6 @@ class ProductProduct(models.Model):
         )
         self.sudo().mapped("product_tmpl_id").ids
         for product in self.sudo():
-            variable_attributes = product.attribute_line_ids.filtered(
-                lambda l: len(l.value_ids) > 1
-            ).mapped("attribute_id")
             variant = product.product_template_attribute_value_ids._get_combination_name()
             name = variant and "%s (%s)" % (product.name, variant) or product.name
             mydict = {

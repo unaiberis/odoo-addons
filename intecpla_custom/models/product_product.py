@@ -71,27 +71,17 @@ class ProductProduct(models.Model):
 
         def _name_get(d):
             name = d.get("name", "")
-            code = (
-                self._context.get("display_default_code", True)
-                and d.get("default_code", False)
-                or False
-            )
-            if code:
-                name = "[%s] %s" % (code, name)
+            if self._context.get("display_default_code", True):
+                code = d.get("default_code")
+                if code:
+                    name = f"[{code}] {name}"
             return (d["id"], name)
 
-        partner_id = self._context.get("partner_id")
-        if partner_id:
-            partner_ids = [
-                partner_id,
-                self.env["res.partner"].browse(partner_id).commercial_partner_id.id,
-            ]
-        else:
-            pass
         self.check_access_rights("read")
         self.check_access_rule("read")
-        result = []
-        self.sudo().read(
+
+        products = self.sudo()
+        products.read(
             [
                 "name",
                 "default_code",
@@ -101,16 +91,18 @@ class ProductProduct(models.Model):
             ],
             load=False,
         )
-        self.sudo().mapped("product_tmpl_id").ids
-        for product in self.sudo():
+
+        result = []
+        for product in products:
             variant = product.product_template_attribute_value_ids._get_combination_name()
-            name = variant and "%s (%s)" % (product.name, variant) or product.name
-            mydict = {
+            name = f"{product.name} ({variant})" if variant else product.name
+            product_data = {
                 "id": product.id,
                 "name": name,
                 "default_code": product.default_code,
             }
-            result.append(_name_get(mydict))
+            result.append(_name_get(product_data))
+
         return result
 
     @api.model_create_multi

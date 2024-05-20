@@ -106,7 +106,7 @@ class ProductProduct(models.Model):
             variable_attributes = product.attribute_line_ids.filtered(
                 lambda l: len(l.value_ids) > 1
             ).mapped("attribute_id")
-            variant = product.product_template_attribute_value_ids._get_combination_name(variable_attributes)
+            variant = product.product_template_attribute_value_ids._get_combination_name()
             name = variant and "%s (%s)" % (product.name, variant) or product.name
             mydict = {
                 "id": product.id,

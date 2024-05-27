@@ -7,7 +7,9 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     product_code = fields.Char(
-        string="Product Code", compute="_compute_product_code", store=True, copy=False
+        compute="_compute_product_code",
+        store=True,
+        copy=False,
     )
 
     @api.depends("picking_id", "product_id", "product_uom_qty")

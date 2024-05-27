@@ -7,7 +7,12 @@ class ThresholdPercentageBetweenCosts(models.Model):
     _name = "threshold.percentage.between.costs"
     _description = "Threshold percentage between costs"
 
-    name = fields.Char(string="description", required=True)
+    name = fields.Char(
+        string="description",
+        required=True,
+    )
     threshold_percentage = fields.Float(
-        string="Threshold (in %)", digits=(16, 2), default=0.0
+        string="Threshold (in %)",
+        digits=(16, 2),
+        default=0.0,
     )

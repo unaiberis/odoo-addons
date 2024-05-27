@@ -6,11 +6,23 @@ from odoo import _, api, fields, models
 class RepairOrder(models.Model):
     _inherit = "repair.order"
 
-    employee_id = fields.Many2one(string="Employee", comodel_name="hr.employee")
-    expected_repair_date = fields.Date(string="Expected repair date")
-    fees_lines = fields.One2many(readonly=False)
-    operations = fields.One2many(readonly=False)
-    only_read = fields.Boolean(string="Only read", compute="_compute_only_read")
+    employee_id = fields.Many2one(
+        string="Employee",
+        comodel_name="hr.employee",
+    )
+    expected_repair_date = fields.Date(
+        string="Expected repair date",
+    )
+    fees_lines = fields.One2many(
+        readonly=False,
+    )
+    operations = fields.One2many(
+        readonly=False,
+    )
+    only_read = fields.Boolean(
+        string="Only read",
+        compute="_compute_only_read",
+    )
     show_button_repair_start_intecpla = fields.Boolean(
         string="Show button repair start intecpla",
         compute="_compute_show_button_repair_start_intecpla",

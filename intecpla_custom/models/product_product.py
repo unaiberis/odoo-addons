@@ -94,7 +94,9 @@ class ProductProduct(models.Model):
 
         result = []
         for product in products:
-            variant = product.product_template_attribute_value_ids._get_combination_name()
+            variant = (
+                product.product_template_attribute_value_ids._get_combination_name()
+            )
             name = f"{product.name} ({variant})" if variant else product.name
             product_data = {
                 "id": product.id,

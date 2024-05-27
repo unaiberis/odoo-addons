@@ -5,22 +5,22 @@
     "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
-        "stock", # core
+        "stock",  # core
         "sale_order_line_inventory",
-        "hr", # core
-        "purchase_discount", # oca/purchase-workflow
-        "repair_calendar_view", # migration from oca/manufacture v12
+        "hr",  # core
+        "purchase_discount",  # oca/purchase-workflow
+        "repair_calendar_view",  # migration from oca/manufacture v12
         "product_supplier_code_purchase",
-        "account_payment_mode", # oca/bank-payment
+        "account_payment_mode",  # oca/bank-payment
         "repair_validate",
-        "repair_refurbish", # migration from oca/manufacture v14
+        "repair_refurbish",  # migration from oca/manufacture v14
         "product_price_by_pricelist",
         "product_final_price_by_pricelist",
         "product_alternative_sale_code",
         "product_category_sale_price",
         "purchase_last_price_info",
         "product_second_name",
-        "sales_team", # core
+        "sales_team",  # core
         "invoice_supplier_last_price_info",
     ],
     "author": "AvanzOSC",

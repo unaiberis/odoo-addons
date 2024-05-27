@@ -3,12 +3,15 @@
     <record id="product_price_by_pricelist_view_tree_inherit" model="ir.ui.view">
         <field name="name">product.price.by.pricelist.tree.inherit</field>
         <field name="model">product.price.by.pricelist</field>
-        <field name="inherit_id" ref="product_price_by_pricelist.product_price_by_pricelist_view_tree"/>
+        <field
+      name="inherit_id"
+      ref="product_price_by_pricelist.product_price_by_pricelist_view_tree"
+    />
         <field name="arch" type="xml">
             <xpath expr="//tree" position="inside">
-                <field name="description_sale_es"/>
-                <field name="description_sale_cat"/>
-                <field name="description_sale_en"/>
+                <field name="description_sale_es" />
+                <field name="description_sale_cat" />
+                <field name="description_sale_en" />
             </xpath>
         </field>
     </record>

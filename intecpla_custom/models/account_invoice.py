@@ -30,16 +30,16 @@ class AccountInvoice(models.Model):
                         ):
                             raise UserError(
                                 _(
-                                    "The invoice already exists: %s, for the "
-                                    "supplier: %s, with supplier reference: %s, "
-                                    "and date %s."
+                                    "The invoice already exists: %(number)s, "
+                                    "for the supplier: %(supplier)s, "
+                                    "with supplier reference: %(reference)s, and date %(date)s."
                                 )
-                                % (
-                                    inv.number,
-                                    inv.partner_id.name,
-                                    inv.reference,
-                                    inv.date_invoice,
-                                )
+                                % {
+                                    "number": inv.number,
+                                    "supplier": inv.partner_id.name,
+                                    "reference": inv.reference,
+                                    "date": inv.date_invoice,
+                                }
                             )
         return super().action_invoice_open()
 

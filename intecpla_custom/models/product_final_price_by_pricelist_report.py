@@ -7,13 +7,16 @@ class ProductFinalPriceByPricelist(models.Model):
     _inherit = "product.final.price.by.pricelist.report"
 
     description_sale_es = fields.Char(
-        string="Name of the product in sales (Spanish)", copy=False
+        string="Name of the product in sales (Spanish)",
+        copy=False,
     )
     description_sale_en = fields.Char(
-        string="Name of the product in sales (English)", copy=False
+        string="Name of the product in sales (English)",
+        copy=False,
     )
     description_sale_cat = fields.Char(
-        string="Name of the product in sales (Catalan)", copy=False
+        string="Name of the product in sales (Catalan)",
+        copy=False,
     )
 
     _depends = {

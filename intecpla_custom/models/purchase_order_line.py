@@ -6,7 +6,7 @@ from odoo import api, fields, models
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    product_code = fields.Char(string="Product code")
+    product_code = fields.Char()
 
     @api.onchange("product_id")
     def onchange_product_id(self):

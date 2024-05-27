@@ -3,7 +3,6 @@
 from odoo import api, fields, models
 
 
-
 class ProductSupplierinfo(models.Model):
     _inherit = "product.supplierinfo"
     _order = "sequence, min_qty desc, price_with_discount"

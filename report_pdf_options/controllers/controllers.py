@@ -1,5 +1,5 @@
 from odoo import http
-from odoo.addons.web.controllers.main import ReportController
+from odoo.addons.web.controllers.report import ReportController
 import json
 
 

@@ -1,0 +1,16 @@
+{
+    "name": "Custom Sale Order Report",
+    "version": "1.0",
+    "summary": "Customize Sale Order Report in Odoo 16",
+    "description": "Module to customize the Sale Order report in Odoo version 16.",
+    "author": "Your Name",
+    "category": "Sales",
+    "depends": ["sale_management"],
+    "data": [
+        "reports/sale_order_report.xml",
+        "views/sale_order_report_inherit.xml",
+    ],
+    "installable": True,
+    "auto_install": False,
+    "application": True,
+}

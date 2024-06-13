@@ -4,7 +4,6 @@
         <field name="name">sale_order_report_inherit</field>
         <field name="inherit_id" ref="sale.report_saleorder_document"/>
         <field name="arch" type="xml">
-        
             <xpath expr="//h2[@class='mt-4']" position="replace">
                 <h2 class="mt-4">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Factura Pro-Forma # </span>
@@ -32,8 +31,10 @@
 :                        <span t-field="doc.partner_id.vat"/>
                     </p>
                 </t>
+
             </xpath>
 
+            <!-- Eliminar el comercial -->
             <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2' and strong[text()='Salesperson:']]" position="replace">
             </xpath>
 
@@ -52,10 +53,21 @@
             </xpath>
 
             <xpath expr="/t/t/div/div[4]" position="after">
-                <t t-if="doc.partner_shipping_id.avatar_1920">
-                    <img t-att-src="'data:image/png;base64,' + doc.partner_shipping_id.avatar_1920.decode('utf-8')" t-att-alt="doc.partner_shipping_id.name"/>
+                <!-- LA TABLA DE CONDICIONES ECONOMICAS -->
+                <div>
+                    <span t-field="doc.x_studio_html_field_BvoDh"/>
+                    <span t-field="doc.x_studio_html_field_fdmpF"/>
+                </div>
+
+                <!-- LA IMAGEN -->
+                <t t-if="doc.partner_id.avatar_1920">
+                    <div style="text-align: center; margin-top: 20px">
+                        <img t-att-src="'data:image/png;base64,' + doc.partner_id.avatar_1920.decode('utf-8')" t-att-alt="doc.partner_id.name" t-att-style="'height: 400px; width: auto;'"/>
+                    </div>
                 </t>
+
             </xpath>
+
         </field>
     </record>
 </odoo>

@@ -6,7 +6,7 @@
     "description": "Module to customize the Sale Order report in Odoo version 16.",
     "author": "Your Name",
     "category": "Sales",
-    "depends": ["sale_management"],
+    "depends": ["sale", "sale_management"],
     "data": [
         "views/sale_order_report_inherit.xml",
     ],

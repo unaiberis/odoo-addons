@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <odoo>
-
-    <!-- Heredar el reporte de sale.order -->
     <record id="sale_order_report_inherit" model="ir.ui.view">
         <field name="name">sale.order.report.inherit</field>
         <field name="model">sale.order</field>

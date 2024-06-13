@@ -13,24 +13,8 @@
                     </span>
                 </h2>
             </xpath>
-            <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2' and strong[text()='Salesperson:']]" position="replace">
-            </xpath>
 
-            <xpath expr="//p[@t-field='doc.date_order']" position="attributes">
-                <attribute name="style">font-size: 22px;</attribute>
-            </xpath>
-            <xpath expr="//p[@t-field='doc.validity_date']" position="attributes">
-                <attribute name="style">font-size: 22px;</attribute>
-            </xpath>
-            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']" position="attributes">
-                <attribute name="style">font-size: 22px;</attribute>
-            </xpath>
-
-            <xpath expr="//div[@name='so_total_summary']" position="attributes">
-                <attribute name="style">font-size: 22px;</attribute>
-            </xpath>
             <xpath expr="//t[@t-set='information_block']" position="replace">
-
                 <t t-set="information_block">
                     <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
                         <strong style="font-size: 20px;">Dirección de entrega:</strong>
@@ -38,6 +22,7 @@
                     </t>
                 </t>
             </xpath>
+
             <xpath expr="//t[@t-set='address']" position="replace">
                 <t t-set="address">
                     <div style="font-size: 20px;" t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
@@ -46,8 +31,31 @@
 :                        <span t-field="doc.partner_id.vat"/>
                     </p>
                 </t>
-
             </xpath>
+
+            <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2' and strong[text()='Salesperson:']]" position="replace">
+            </xpath>
+
+            <xpath expr="//p[@t-field='doc.date_order']" position="attributes">
+                <attribute name="style">font-size: 20px;</attribute>
+            </xpath>
+            <xpath expr="//p[@t-field='doc.validity_date']" position="attributes">
+                <attribute name="style">font-size: 20px;</attribute>
+            </xpath>
+            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']" position="attributes">
+                <attribute name="style">font-size: 20px;</attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='so_total_summary']" position="attributes">
+                <attribute name="style">font-size: 20px;</attribute>
+            </xpath>
+
+            <!--
+              <xpath expr="/t/t/div/div[4]" position="after">
+                
+                        <span t-field="doc.partner_shipping_id.avatar_1920" t-options-widget="image" t-options-qweb_img_raw_data="1"/>
+
+              </xpath>-->
         </field>
     </record>
 </odoo>

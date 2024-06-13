@@ -4,6 +4,7 @@
         <field name="name">sale_order_report_inherit</field>
         <field name="inherit_id" ref="sale.report_saleorder_document"/>
         <field name="arch" type="xml">
+        
             <xpath expr="//h2[@class='mt-4']" position="replace">
                 <h2 class="mt-4">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Factura Pro-Forma # </span>
@@ -50,12 +51,11 @@
                 <attribute name="style">font-size: 20px;</attribute>
             </xpath>
 
-            <!--
-              <xpath expr="/t/t/div/div[4]" position="after">
-                
-                        <span t-field="doc.partner_shipping_id.avatar_1920" t-options-widget="image" t-options-qweb_img_raw_data="1"/>
-
-              </xpath>-->
+            <xpath expr="/t/t/div/div[4]" position="after">
+                <t t-if="doc.partner_shipping_id.avatar_1920">
+                    <img t-att-src="'data:image/png;base64,' + doc.partner_shipping_id.avatar_1920.decode('utf-8')" t-att-alt="doc.partner_shipping_id.name"/>
+                </t>
+            </xpath>
         </field>
     </record>
 </odoo>

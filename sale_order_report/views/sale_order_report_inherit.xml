@@ -21,14 +21,14 @@
                 </xpath>
 
                 <!-- Aumentar tamaño de fuente para fechas y vencimiento -->
-                <xpath expr="//p[@t-field='doc.date_order']/@style" position="replace">
+                <!-- <xpath expr="//p[@t-field='doc.date_order']/@style" position="replace">
                     <attribute name="style">font-size: 18px;</attribute>
                 </xpath>
                 <xpath expr="//p[@t-field='doc.validity_date']/@style" position="replace">
                     <attribute name="style">font-size: 18px;</attribute>
-                </xpath>
+                </xpath> -->
                 <!-- Aumentar tamaño de fuente para líneas de precio -->
-                <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_quantity']/@style" position="replace">
+                <!-- <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_quantity']/@style" position="replace">
                     <attribute name="style">font-size: 16px;</attribute>
                 </xpath>
                 <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_priceunit']/@style" position="replace">
@@ -36,7 +36,7 @@
                 </xpath>
                 <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_subtotal']/@style" position="replace">
                     <attribute name="style">font-size: 16px;</attribute>
-                </xpath>
+                </xpath> -->
 
             </field>
         </record>

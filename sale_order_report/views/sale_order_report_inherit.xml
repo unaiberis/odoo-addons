@@ -1,41 +1,41 @@
 <?xml version="1.0"?>
 <odoo>
     <record id="sale_order_report_inherit" model="ir.ui.view">
-        <field name="name">sale.order.report.inherit</field>
-        <field name="model">sale.order</field>
+        <field name="name">sale_order_report_inherit</field>
         <field name="inherit_id" ref="sale.report_saleorder_document"/>
         <field name="arch" type="xml">
             <xpath expr="//h2[@class='mt-4']" position="replace">
                 <h2 class="mt-4">
-                    <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
-                    <span t-elif="doc.state in ['draft','sent']">Presupuesto O</span>
-                    <span t-else="">Order O</span>
-                    <span t-esc="doc.name.startswith('S00') and 'E00' + doc.name[3:] or doc.name"/>
+                    <span t-if="env.context.get('proforma', False) or is_pro_forma">Factura Pro-Forma # </span>
+                    <span t-elif="doc.state in ['draft','sent']">Presupuesto OE<t t-esc="doc.name[1:]"/>
+                    </span>
+                    <span t-else="">Orden OE<t t-esc="doc.name[1:]"/>
+                    </span>
                 </h2>
+
+
             </xpath>
-            <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2' and strong[text()='Salesperson:']]" position="attributes">
-                <attribute name="invisible">1</attribute>
+            <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2' and strong[text()='Salesperson:']]" position="replace">
             </xpath>
 
             <!-- Aumentar tamaño de fuente para fechas y vencimiento -->
-            <!-- <xpath expr="//p[@t-field='doc.date_order']/@style" position="replace">
-                    <attribute name="style">font-size: 18px;</attribute>
-                </xpath>
-                <xpath expr="//p[@t-field='doc.validity_date']/@style" position="replace">
-                    <attribute name="style">font-size: 18px;</attribute>
-                </xpath> -->
+            <xpath expr="//p[@t-field='doc.date_order']" position="attributes">
+                <attribute name="style">font-size: 18px;</attribute>
+            </xpath>
+            <xpath expr="//p[@t-field='doc.validity_date']" position="attributes">
+                <attribute name="style">font-size: 18px;</attribute>
+            </xpath>
             <!-- Aumentar tamaño de fuente para líneas de precio -->
-            <!-- <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_quantity']/@style" position="replace">
-                    <attribute name="style">font-size: 16px;</attribute>
-                </xpath>
-                <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_priceunit']/@style" position="replace">
-                    <attribute name="style">font-size: 16px;</attribute>
-                </xpath>
-                <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_subtotal']/@style" position="replace">
-                    <attribute name="style">font-size: 16px;</attribute>
-                </xpath> -->
+            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_quantity']" position="replace">
+                <attribute name="style">font-size: 16px;</attribute>
+            </xpath>
+            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_priceunit']" position="replace">
+                <attribute name="style">font-size: 16px;</attribute>
+            </xpath>
+            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_subtotal']" position="replace">
+                <attribute name="style">font-size: 16px;</attribute>
+            </xpath>
 
         </field>
     </record>
-
 </odoo>

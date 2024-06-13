@@ -4,7 +4,7 @@
     "license": "AGPL-3",
     "summary": "Customize Sale Order Report in Odoo 16",
     "description": "Module to customize the Sale Order report in Odoo version 16.",
-    "author": "Your Name",
+    "author": "Avanzosc",
     "category": "Sales",
     "depends": ["sale", "sale_management"],
     "data": [

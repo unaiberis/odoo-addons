@@ -12,30 +12,25 @@
                     <span t-else="">Orden OE<t t-esc="doc.name[1:]"/>
                     </span>
                 </h2>
-
-
             </xpath>
             <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2' and strong[text()='Salesperson:']]" position="replace">
             </xpath>
 
-            <!-- Aumentar tamaño de fuente para fechas y vencimiento -->
             <xpath expr="//p[@t-field='doc.date_order']" position="attributes">
-                <attribute name="style">font-size: 28px;</attribute>
+                <attribute name="style">font-size: 22px;</attribute>
             </xpath>
             <xpath expr="//p[@t-field='doc.validity_date']" position="attributes">
-                <attribute name="style">font-size: 28px;</attribute>
+                <attribute name="style">font-size: 22px;</attribute>
             </xpath>
-            <!-- Aumentar tamaño de fuente para líneas de precio -->
-            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_quantity']" position="attributes">
-                <attribute name="style">font-size: 28px;</attribute>
+            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']" position="attributes">
+                <attribute name="style">font-size: 22px;</attribute>
             </xpath>
-            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_priceunit']" position="attributes">
-                <attribute name="style">font-size: 28px;</attribute>
-            </xpath>
-            <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']/thead/tr/th[@name='th_subtotal']" position="attributes">
-                <attribute name="style">font-size: 28px;</attribute>
+
+            <xpath expr="//div[@name='so_total_summary']" position="attributes">
+                <attribute name="style">font-size: 22px;</attribute>
             </xpath>
             <xpath expr="//t[@t-set='information_block']" position="replace">
+
                 <t t-set="information_block">
                     <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
                         <strong style="font-size: 20px;">Dirección de entrega:</strong>
@@ -51,6 +46,7 @@
 :                        <span t-field="doc.partner_id.vat"/>
                     </p>
                 </t>
+
             </xpath>
         </field>
     </record>

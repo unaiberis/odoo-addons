@@ -7,7 +7,6 @@
     "category": "Sales",
     "depends": ["sale_management"],
     "data": [
-        "reports/sale_order_report.xml",
         "views/sale_order_report_inherit.xml",
     ],
     "installable": True,

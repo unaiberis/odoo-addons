@@ -12,6 +12,13 @@
                     <span t-else="">Orden OE<t t-esc="doc.name[1:]"/>
                     </span>
                 </h2>
+                <!-- LA IMAGEN -->
+                <t t-if="doc.partner_id.avatar_1920">
+                    <div style="text-align: center; margin-top: 20px">
+                        <img t-att-src="'data:image/png;base64,' + doc.partner_id.avatar_1920.decode('utf-8')" t-att-alt="doc.partner_id.name" t-att-style="'height: 400px; width: auto;'"/>
+                    </div>
+                </t>
+
             </xpath>
 
             <xpath expr="//t[@t-set='information_block']" position="replace">
@@ -54,20 +61,14 @@
 
             <xpath expr="/t/t/div/div[4]" position="after">
                 <!-- LA TABLA DE CONDICIONES ECONOMICAS -->
+                <!-- Son campos Odoo Studio que creó Ana. No están en ningún módulo -->
                 <div>
                     <span t-field="doc.x_studio_html_field_BvoDh"/>
                     <span t-field="doc.x_studio_html_field_fdmpF"/>
                 </div>
 
-                <!-- LA IMAGEN -->
-                <t t-if="doc.partner_id.avatar_1920">
-                    <div style="text-align: center; margin-top: 20px">
-                        <img t-att-src="'data:image/png;base64,' + doc.partner_id.avatar_1920.decode('utf-8')" t-att-alt="doc.partner_id.name" t-att-style="'height: 400px; width: auto;'"/>
-                    </div>
-                </t>
 
             </xpath>
-
         </field>
     </record>
 </odoo>

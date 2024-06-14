@@ -66,8 +66,6 @@
                     <span t-field="doc.x_studio_html_field_BvoDh"/>
                     <span t-field="doc.x_studio_html_field_fdmpF"/>
                 </div>
-
-
             </xpath>
         </field>
     </record>

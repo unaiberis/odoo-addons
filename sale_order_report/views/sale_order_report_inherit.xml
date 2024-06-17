@@ -24,16 +24,16 @@
             <xpath expr="//t[@t-set='information_block']" position="replace">
                 <t t-set="information_block">
                     <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
-                        <strong style="font-size: 20px;">Dirección de entrega:</strong>
-                        <div style="font-size: 20px;" t-field="doc.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                        <strong style="font-size: 16px;">Dirección de entrega:</strong>
+                        <div style="font-size: 16px;" t-field="doc.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
                     </t>
                 </t>
             </xpath>
 
             <xpath expr="//t[@t-set='address']" position="replace">
                 <t t-set="address">
-                    <div style="font-size: 20px;" t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
-                    <p style="font-size: 20px;" t-if="doc.partner_id.vat">
+                    <div style="font-size: 16px;" t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                    <p style="font-size: 16px;" t-if="doc.partner_id.vat">
                         <t t-out="doc.company_id.account_fiscal_country_id.vat_label or 'Tax ID'"/>
 :                        <span t-field="doc.partner_id.vat"/>
                     </p>
@@ -46,17 +46,17 @@
             </xpath>
 
             <xpath expr="//p[@t-field='doc.date_order']" position="attributes">
-                <attribute name="style">font-size: 20px;</attribute>
+                <attribute name="style">font-size: 16px;</attribute>
             </xpath>
             <xpath expr="//p[@t-field='doc.validity_date']" position="attributes">
-                <attribute name="style">font-size: 20px;</attribute>
+                <attribute name="style">font-size: 16px;</attribute>
             </xpath>
             <xpath expr="//table[@class='table table-sm o_main_table table-borderless mt-4']" position="attributes">
-                <attribute name="style">font-size: 20px;</attribute>
+                <attribute name="style">font-size: 16px;</attribute>
             </xpath>
 
             <xpath expr="//div[@name='so_total_summary']" position="attributes">
-                <attribute name="style">font-size: 20px;</attribute>
+                <attribute name="style">font-size: 16px;</attribute>
             </xpath>
 
             <xpath expr="/t/t/div/div[4]" position="after">

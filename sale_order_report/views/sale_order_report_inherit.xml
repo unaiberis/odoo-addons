@@ -15,7 +15,7 @@
                 <!-- LA IMAGEN -->
                 <t t-if="doc.partner_id.avatar_1920">
                     <div style="text-align: center; margin-top: 20px">
-                        <img t-att-src="'data:image/png;base64,' + doc.partner_id.avatar_1920.decode('utf-8')" t-att-alt="doc.partner_id.name" t-att-style="'height: 400px; width: auto;'"/>
+                        <img t-att-src="'data:image/png;base64,' + doc.partner_shipping_id.avatar_1920.decode('utf-8')" t-att-alt="doc.partner_id.name" t-att-style="'height: 400px; width: auto;'"/>
                     </div>
                 </t>
 

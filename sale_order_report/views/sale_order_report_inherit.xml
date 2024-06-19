@@ -67,6 +67,14 @@
                     <span t-field="doc.x_studio_html_field_fdmpF"/>
                 </div>
             </xpath>
+
+        </field>
+    </record>
+
+    <record id="external_layout_boxed_inherit" model="ir.ui.view">
+        <field name="name">web_layout_inherit</field>
+        <field name="inherit_id" ref="web.external_layout_boxed"/>
+        <field name="arch" type="xml">
             <xpath expr="//div[@t-field='company.report_footer']">
                 <div style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word; width: 100%; height: 40px; overflow: hidden; margin:0 ;padding:0 ;font-size: 8px;line-height:1;">
 Con arreglo a lo dispuesto en la ley Orgánica 15/1999, de 13 de Diciembre, OKATEK CONTROL Y SERVIVIOS S.L. informa que los datos personales serán incluidos en un fichero de datos, salvo renuncia expresa del cliente, con el fin de gestionar nuestra relación comercial y remitir información sobre nuestros servicios y fechas próximas de inspección.

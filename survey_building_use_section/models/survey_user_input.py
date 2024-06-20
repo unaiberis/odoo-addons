@@ -7,6 +7,7 @@ from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
+
 class SurveyUserInput(models.Model):
     _inherit = "survey.user_input"
 
@@ -87,15 +88,9 @@ class SurveyUserInput(models.Model):
         string="Installation Number",
         related="inspected_building_id.installation_number",
     )
-    act_number = fields.Char(
-        string="Act Number",
-    )
-    inspection_start_date = fields.Datetime(
-        string="Inspection Start Date",
-    )
-    inspection_end_date = fields.Datetime(
-        string="Inspection End Date",
-    )
+    act_number = fields.Char()
+    inspection_start_date = fields.Datetime()
+    inspection_end_date = fields.Datetime()
     inspector_id = fields.Many2one(
         "res.partner",
         string="Inspector",
@@ -106,14 +101,9 @@ class SurveyUserInput(models.Model):
             ("volunteer", "Volunteer"),
             ("correction_of_deficiencies", "Correction of Deficiencies"),
         ],
-        string="Inspection Type",
     )
-    date_deficiency_correction = fields.Date(
-        string="Date Deficiency Correction",
-    )
-    next_inspection_date = fields.Date(
-        string="Next Inspection Date",
-    )
+    date_deficiency_correction = fields.Date()
+    next_inspection_date = fields.Date()
     installed_equipment_ids = fields.Many2many(
         "installed.equipment",
         string="Installed Equipment",
@@ -168,16 +158,9 @@ class SurveyUserInput(models.Model):
 
     survey_report_fussion = fields.Many2many(
         "survey.user_input",
-        string="Survey Report Fussion",
         relation="survey_report_fussion_rel",
         column1="survey_report_fussion_id",
         column2="survey_report_id",
-    )
-    remove_title_from_report = fields.Boolean(
-        string="Remove Title From Report",
-    )
-    remove_upper_text_from_report = fields.Boolean(
-        string="Remove Upper Text From Report",
     )
 
     @api.model_create_multi

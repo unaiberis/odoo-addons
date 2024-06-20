@@ -5,7 +5,4 @@ class InstalledEquipment(models.Model):
     _name = "installed.equipment"
     _description = "Installed Equipment"
 
-    name = fields.Char(
-        "Equipment Name", 
-        required=True
-    )
+    name = fields.Char("Equipment Name", required=True)

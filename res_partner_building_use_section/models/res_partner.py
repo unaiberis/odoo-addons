@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models
 
+
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
@@ -14,21 +15,15 @@ class ResPartner(models.Model):
         "partner_id",
         "Building Section/Area",
     )
-    service_start_date = fields.Date(
-        "Service Start Date",
-    )
-    service_end_date = fields.Date(
-        "Service End Date",
-    )
+    service_start_date = fields.Date()
+    service_end_date = fields.Date()
     alternative_text = fields.Char(
-        "Alternative Text",
         copy=False,
     )
     number_of_floors = fields.Char(
-        "Number of Plants",
+        "Number of Floors",
     )
     risk = fields.Char(
-        "Risk",
         copy=False,
     )
     area = fields.Float(
@@ -36,9 +31,7 @@ class ResPartner(models.Model):
         default=0.0,
         copy=False,
     )
-    evacuation_height = fields.Float(
-        "Evacuation Height",
-    )
+    evacuation_height = fields.Float()
     configuration = fields.Selection(
         [
             ("A", "A"),
@@ -47,40 +40,26 @@ class ResPartner(models.Model):
             ("D", "D"),
             ("E", "E"),
         ],
-        "Configuration",
     )
-    file_number = fields.Char(
-        "File Number",
-    )
-    installation_number = fields.Char(
-        "Installation Number",
-    )
-    certification_text = fields.Text(
-        "Certification Text",
-    )
+    file_number = fields.Char()
+    installation_number = fields.Char()
+    certification_text = fields.Text()
     degree_title = fields.Char(
-        "Degree Title",
         domain="[('is_company','=',False)]",
         help="Degree Title of the individual contact.",
     )
     membership_number = fields.Char(
-        "Membership Number",
         domain="[('is_company','=',False)]",
         help="Membership number of the individual contact.",
     )
-    emi = fields.Char(
-        "EMI",
-    )
-    epi = fields.Char(
-        "EPI",
-    )
+    emi = fields.Char()
+    epi = fields.Char()
     # Maintainer
     maintainer_id = fields.Many2one(
         "res.partner",
         "Maintainer",
     )
     maintainer_emi = fields.Char(
-        "Maintainer EMI",
         related="maintainer_id.emi",
     )
     installer_id = fields.Many2one(
@@ -108,9 +87,7 @@ class ResPartner(models.Model):
         related="inspected_building_id.dof_author_degree",
     )
     # Project
-    project_title = fields.Char(
-        "Project Title",
-    )
+    project_title = fields.Char()
     project_author_id = fields.Many2one(
         "res.partner",
         "Project Author",
@@ -123,9 +100,7 @@ class ResPartner(models.Model):
         "Project Author License",
         related="project_author_id.membership_number",
     )
-    project_approved_date = fields.Date(
-        "Project Approved Date",
-    )
+    project_approved_date = fields.Date()
     # Certificate of Final Work Direction
     dof_author_id = fields.Many2one(
         "res.partner",

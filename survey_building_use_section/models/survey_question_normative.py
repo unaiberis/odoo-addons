@@ -8,21 +8,14 @@ class SurveyQuestionNormative(models.Model):
     _description = "Survey Question Normative"
 
     name = fields.Char(
-        "Name",
         required=True,
     )
-    description = fields.Char(
-        "Description",
-    )
-    error_text = fields.Text(
-        "Error Text",
-    )
+    description = fields.Char()
+    error_text = fields.Text()
     start_date = fields.Date(
-        "Start Date",
         required=True,
     )
     end_date = fields.Date(
-        "End Date",
         required=True,
     )
     related_article_ids = fields.One2many(

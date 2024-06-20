@@ -20,10 +20,8 @@ class BuildingSection(models.Model):
     )
     section_use = fields.Many2one(
         "building.use",
-        "Section Use",
     )
     risk = fields.Char(
-        "Risk",
         copy=False,
     )
     area = fields.Float(
@@ -31,9 +29,7 @@ class BuildingSection(models.Model):
         default=0.0,
         copy=False,
     )
-    evacuation_height = fields.Float(
-        "Evacuation Height",
-    )
+    evacuation_height = fields.Float()
     configuration = fields.Selection(
         [
             ("A", "A"),
@@ -42,5 +38,4 @@ class BuildingSection(models.Model):
             ("D", "D"),
             ("E", "E"),
         ],
-        "Configuration",
     )

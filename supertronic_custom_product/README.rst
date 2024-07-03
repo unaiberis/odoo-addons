@@ -54,10 +54,3 @@ Credits
 Author
 ------
 - Unai Beristain <unaiberistain@avanzosc.es>
-
-License
-=======
-
-- License: AGPL-3.0 or later
-
-Do not contact contributors directly about support or help with technical issues.

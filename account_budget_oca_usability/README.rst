@@ -1,13 +1,16 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+============================
+Account Budget OCA Usability
+============================
+
+.. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-============================
-Account budget oca usability
-============================
 
-* New menu "Budget Lines" in Invoicing-Accounting-Management. New view of type
-  "pivot" in this new menu.
+|badge1|
+
+* New field, result amount in crossovered budget line. With an action to recalculate it.
+* Calculate the sum of practical amount, theoretical amount and result amount in groupings.
 
 Bug Tracker
 ===========
@@ -22,8 +25,15 @@ Do not contact contributors directly about support or help with technical issues
 Credits
 =======
 
-Contributors
-------------
+Authors
+~~~~~~~
 
-* Ana Juaristi <anajuaristi@avanzosc.es>
-* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* AvanzOSC
+
+Contributors
+~~~~~~~~~~~~
+
+* `AvanzOsc <http://www.avanzosc.es>`_:
+
+  * Berezi Amubieta <bereziamubieta@avanzosc.es>
+  * Ana Juaristi <anajuaristi@avanzosc.es>

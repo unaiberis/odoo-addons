@@ -78,14 +78,12 @@
             name="button_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
-            states="2validate,error"
+            states="2validate,error,pass"
           />
                     <button
             name="button_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass"
           />
                     <field name="state" widget="statusbar" />
@@ -112,6 +110,7 @@
                             <field name="partner_function" />
                         </group>
                         <group>
+                            <field name="action" />
                             <field name="partner_id" options="{'no_create': True}" />
                             <field
                 name="partner_parent_id"
@@ -160,6 +159,7 @@
                 <field name="partner_name" />
                 <field name="partner_comercial" optional="hide" />
                 <field name="partner_company_type" />
+                <field name="partner_comercial" />
                 <field name="partner_vat" />
                 <field name="partner_id" optional="hide" />
                 <field name="partner_type" />
@@ -201,8 +201,26 @@
                 <field name="partner_email" />
                 <field name="partner_website" />
                 <field name="partner_comment" />
-                <field name="state" />
-                <field name="log_info" />
+                <field name="state" optional="hide" />
+                <field name="log_info" optional="hide" />
+                <button
+          name="action_open_form"
+          type="object"
+          title="Open form view"
+          icon="fa-external-link"
+        />
+                <button
+          name="button_validate"
+          type="object"
+          icon="fa-search"
+          states="2validate,pass,error"
+        />
+                <button
+          name="button_process"
+          type="object"
+          icon="fa-check"
+          states="pass"
+        />
             </tree>
         </field>
     </record>
@@ -213,5 +231,50 @@
         <field name="res_model">res.partner.import.line</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="res_partner_import_line_view_tree" />
+    </record>
+
+    <record id="res_partner_import_line_form_action" model="ir.actions.act_window">
+        <field name="name">Import Contact Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.import.line</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="res_partner_import_line_view_form" />
+    </record>
+
+    <record id="action_button_validate" model="ir.actions.server">
+        <field name="name">Validate</field>
+        <field
+      name="model_id"
+      ref="contacts_import_wizard.model_res_partner_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="contacts_import_wizard.model_res_partner_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_validate()
+        </field>
+    </record>
+
+    <record id="action_button_process" model="ir.actions.server">
+        <field name="name">Process</field>
+        <field
+      name="model_id"
+      ref="contacts_import_wizard.model_res_partner_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="contacts_import_wizard.model_res_partner_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_process()
+        </field>
     </record>
 </odoo>

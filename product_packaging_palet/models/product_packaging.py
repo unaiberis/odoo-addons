@@ -7,10 +7,7 @@ class ProductPackaging(models.Model):
     _inherit = "product.packaging"
 
     palet_id = fields.Many2one(
-        string="Palet",
-        comodel_name="product.packaging",
-        copy=False,
-        domain="[('is_generic', '=', True)]",
+        string="Palet", comodel_name="stock.package.type", copy=False
     )
     palet_qty = fields.Float(
         string="Contained Palet Quantity",
@@ -18,4 +15,3 @@ class ProductPackaging(models.Model):
         digits="Product Unit of Measure",
         copy=False,
     )
-    is_generic = fields.Boolean(string="Is generic", default=False)

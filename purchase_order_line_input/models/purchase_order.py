@@ -10,46 +10,7 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     lines_count = fields.Integer(
-        string="Lines Count", compute="_compute_order_lines", store=True
-    )
-    price_subtotal_to_invoice = fields.Monetary(
-        compute="_compute_amount_to_invoice",
-        string="Subtotal to Bill",
-        store=True,
-    )
-    price_total_to_invoice = fields.Monetary(
-        compute="_compute_amount_to_invoice",
-        string="Total to Bill",
-        store=True,
-    )
-    price_subtotal_to_receive = fields.Monetary(
-        compute="_compute_amount_to_receive",
-        string="Subtotal to Receive",
-        store=True,
-    )
-    price_total_to_receive = fields.Monetary(
-        compute="_compute_amount_to_receive",
-        string="Total to Receive",
-        store=True,
-    )
-    price_subtotal_invoiced = fields.Monetary(
-        compute="_compute_amount_invoiced",
-        string="Billed Subtotal",
-        store=True,
-    )
-    price_total_invoiced = fields.Monetary(
-        compute="_compute_amount_invoiced",
-        string="Billed Total",
-        store=True,
-    )
-    price_subtotal_received = fields.Monetary(
-        compute="_compute_amount_received",
-        string="Received Subtotal",
-        store=True,
-    )
-    price_total_received = fields.Monetary(
-        compute="_compute_amount_received",
-        string="Received Total",
+        compute="_compute_order_lines",
         store=True,
     )
 
@@ -57,62 +18,6 @@ class PurchaseOrder(models.Model):
     def _compute_order_lines(self):
         for line in self:
             line.lines_count = len(line.order_line)
-
-    @api.depends(
-        "order_line",
-        "order_line.price_total_to_invoice",
-        "order_line.price_subtotal_to_invoice",
-    )
-    def _compute_amount_to_invoice(self):
-        for sale in self:
-            sale.price_total_to_invoice = sum(
-                sale.order_line.mapped("price_total_to_invoice")
-            )
-            sale.price_subtotal_to_invoice = sum(
-                sale.order_line.mapped("price_subtotal_to_invoice")
-            )
-
-    @api.depends(
-        "order_line",
-        "order_line.price_total_to_receive",
-        "order_line.price_subtotal_to_receive",
-    )
-    def _compute_amount_to_receive(self):
-        for sale in self:
-            sale.price_total_to_receive = sum(
-                sale.order_line.mapped("price_total_to_receive")
-            )
-            sale.price_subtotal_to_receive = sum(
-                sale.order_line.mapped("price_subtotal_to_receive")
-            )
-
-    @api.depends(
-        "order_line",
-        "order_line.price_total_invoiced",
-        "order_line.price_subtotal_invoiced",
-    )
-    def _compute_amount_invoiced(self):
-        for sale in self:
-            sale.price_total_invoiced = sum(
-                sale.order_line.mapped("price_total_invoiced")
-            )
-            sale.price_subtotal_invoiced = sum(
-                sale.order_line.mapped("price_subtotal_invoiced")
-            )
-
-    @api.depends(
-        "order_line",
-        "order_line.price_total_received",
-        "order_line.price_subtotal_received",
-    )
-    def _compute_amount_received(self):
-        for sale in self:
-            sale.price_total_received = sum(
-                sale.order_line.mapped("price_total_received")
-            )
-            sale.price_subtotal_received = sum(
-                sale.order_line.mapped("price_subtotal_received")
-            )
 
     def action_view_lines(self):
         action = self.env.ref("purchase_order_line_menu.action_purchase_orders_lines")
@@ -261,20 +166,29 @@ class PurchaseOrderLine(models.Model):
                 }
             )
 
-    @api.model
-    def create(self, vals):
-        if not vals.get("order_id", False):
-            purchase_order = self.env["purchase.order"]
-            new_po = purchase_order.new(
-                {
-                    "partner_id": vals.pop("partner_id"),
-                }
-            )
-            for onchange_method in new_po._onchange_methods["partner_id"]:
-                onchange_method(new_po)
-            order_data = new_po._convert_to_write(new_po._cache)
-            vals["order_id"] = new_po.create(order_data).id
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for values in vals_list:
+            # partner_id = values.pop("partner_id")
+            if not values.get("order_id", False):
+                purchase_order = self.env["purchase.order"]
+                new_po = purchase_order.new(
+                    {
+                        "partner_id": values.get("partner_id"),
+                    }
+                )
+                for onchange_method in new_po._onchange_methods[
+                    "partner_id", "product_qty"
+                ]:
+                    onchange_method(new_po)
+                order_data = new_po._convert_to_write(new_po._cache)
+                values["order_id"] = new_po.create(order_data).id
+            if not values.get("display_type", False) and (
+                "date_planned" in values and not values.get("date_planned", False)
+            ):
+                values.pop("date_planned")
+        lines = super().create(vals_list)
+        return lines
 
     def _prepare_compute_all_values(self):
         # Hook method to returns the different argument values for the
@@ -283,7 +197,14 @@ class PurchaseOrderLine(models.Model):
         # This method should disappear as soon as this feature is
         # also introduced like in the sales module.
         self.ensure_one()
-        vals = super()._prepare_compute_all_values()
+        vals = {
+            "price_unit": self.price_unit,
+            "currency_id": self.order_id.currency_id,
+            "product_qty": self.product_qty,
+            "product": self.product_id,
+            "partner": self.order_id.partner_id,
+        }
+
         vals.update(
             {
                 "qty_invoiced": self.qty_invoiced,

@@ -6,8 +6,8 @@
 Purchase order line qty by packaging
 ====================================
 
-* Remove the warning when changing the quantity of the purchase order line.
-* Remove the calculated to the packaging quantity of the purchase order line.
+* On purchase order lines, if "Packaging Quantity" is entered, calculate the
+  "Quantity".
 
 Bug Tracker
 ===========
@@ -26,4 +26,4 @@ Contributors
 ~~~~~~~~~~~~
 
 * Ana Juaristi <anajuaristi@avanzosc.es>
-* Berezi Amubieta <bereziamubieta@avanzosc.es>
+* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>

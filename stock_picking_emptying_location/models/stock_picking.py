@@ -15,8 +15,9 @@ class StockPicking(models.Model):
 
     def button_empty_location(self):
         self.ensure_one()
-        if self.move_line_ids:
-            self.move_line_ids.unlink()
+        if self.move_line_ids_without_package and self.state == "draft":
+            self.move_line_ids_without_package.sudo().unlink()
+            self.move_ids_without_package.sudo().unlink()
         if self.location_id:
             stock = self.env["stock.quant"].search(
                 [("location_id", "=", self.location_id.id)]

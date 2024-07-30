@@ -5,7 +5,7 @@ from odoo.tests import common, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestAnalyticUsability(common.SavepointCase):
+class TestAnalyticUsability(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

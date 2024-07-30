@@ -260,8 +260,7 @@ class BaseImport(models.AbstractModel):
         if req:
             raise UserError(
                 _(
-                    'Unable to load "{extension}" file: requires Python module '
-                    '"{modname}"'
+                    'Unable to load "{extension}" file: requires Python module "{modname}"'
                 ).format(extension=file_extension, modname=req)
             )
         raise UserError(
@@ -401,13 +400,11 @@ class BaseImportLine(models.AbstractModel):
     def button_validate(self):
         auto_commit = not getattr(threading.current_thread(), "testing", False)
         pending_lines = self.filtered(lambda ln: ln.state != "done")
-        for import_wiz in self.mapped("import_id"):
-            wiz_lines = pending_lines.filtered(lambda ln: ln.import_id == import_wiz)
-            for line_chunk_ids in split_every(import_wiz.split_size, wiz_lines.ids):
-                for line in self.browse(line_chunk_ids):
-                    line.write(line._action_validate())
-                if auto_commit:
-                    self._cr.commit()  # pylint: disable=E8102
+        for line_chunk_ids in split_every(self.import_id.split_size, pending_lines.ids):
+            for line in self.browse(line_chunk_ids):
+                line.write(line._action_validate())
+            if auto_commit:
+                self._cr.commit()  # pylint: disable=E8102
 
     def _action_process(self):
         self.ensure_one()
@@ -435,10 +432,8 @@ class BaseImportLine(models.AbstractModel):
     def button_process(self):
         auto_commit = not getattr(threading.current_thread(), "testing", False)
         pending_lines = self.filtered(lambda ln: ln.state == "pass")
-        for import_wiz in self.mapped("import_id"):
-            wiz_lines = pending_lines.filtered(lambda ln: ln.import_id == import_wiz)
-            for line_chunk_ids in split_every(import_wiz.split_size, wiz_lines.ids):
-                for line in self.browse(line_chunk_ids):
-                    line.write(line._action_process())
-                if auto_commit:
-                    self._cr.commit()  # pylint: disable=E8102
+        for line_chunk_ids in split_every(self.import_id.split_size, pending_lines.ids):
+            for line in self.browse(line_chunk_ids):
+                line.write(line._action_process())
+            if auto_commit:
+                self._cr.commit()  # pylint: disable=E8102

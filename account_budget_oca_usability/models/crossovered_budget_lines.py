@@ -1,38 +1,36 @@
-# Copyright 2023 Alfredo de la Fuente - AvanzOSC
+# Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class CrossoveredBudgetLines(models.Model):
     _inherit = "crossovered.budget.lines"
 
-    practical_amount = fields.Float(store=True, copy=False)
-    difference = fields.Float(
-        string="Difference",
-        store=True,
-        copy=False,
-        digits=0,
-        compute="_compute_difference",
+    result_amount = fields.Float(
+        string="Result Amount",
     )
 
-    @api.depends(
-        "general_budget_id",
-        "general_budget_id.account_ids",
-        "date_from",
-        "date_to",
-        "analytic_account_id",
-        "analytic_account_id.line_ids",
-        "analytic_account_id.line_ids.date",
-        "analytic_account_id.line_ids.general_account_id",
-    )
-    def _compute_practical_amount(self):
-        result = super()._compute_practical_amount()
-        return result
-
-    @api.depends("planned_amount", "practical_amount")
-    def _compute_difference(self):
+    def action_recalculate_result_amount(self):
         for line in self:
-            difference = 0
-            if line.practical_amount:
-                difference = line.practical_amount - line.planned_amount
-            line.difference = difference
+            line.result_amount = line.practical_amount - line.planned_amount
+
+    def read_group(
+        self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
+    ):
+        result = super().read_group(
+            domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
+        )
+        for line in result:
+            if "__domain" in line:
+                lines = self.search(line["__domain"])
+                practical_amount = sum(lines.mapped("practical_amount"))
+                theoretical_amount = sum(lines.mapped("theoretical_amount"))
+                result_amount = sum(lines.mapped("result_amount"))
+                line["practical_amount"] = practical_amount
+                line["theoretical_amount"] = theoretical_amount
+                line["result_amount"] = result_amount
+            else:
+                fields.remove("practical_amount")
+                fields.remove("theoretical_amount")
+                fields.remove("result_amount")
+        return result

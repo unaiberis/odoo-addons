@@ -3,7 +3,7 @@
 
 {
     "name": "Contacts Import Wizard",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.1.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -11,7 +11,7 @@
     "depends": [
         "contacts",
         "base_import_wizard",
-        "base_address_city",
+        "base_address_extended",
         "base_location",
         "l10n_es_partner",
     ],

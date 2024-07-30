@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 10:48+0000\n"
-"PO-Revision-Date: 2023-11-27 10:48+0000\n"
+"POT-Creation-Date: 2024-02-16 09:10+0000\n"
+"PO-Revision-Date: 2024-02-16 09:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,33 +16,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_budget_oca_usability
-#: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.view_crossovered_budget_line_search
-msgid "Analytic account"
-msgstr "Cuenta analítica"
+#: model:ir.model,name:account_budget_oca_usability.model_crossovered_budget_lines
+msgid "Budget Line"
+msgstr "Línea de Presupuesto"
 
 #. module: account_budget_oca_usability
-#: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.view_crossovered_budget_line_pivot
-msgid "Budget Lines"
-msgstr "Líneas presupuestarias"
+#: model:ir.actions.server,name:account_budget_oca_usability.action_recalculate_result_amount
+msgid "Recalculate Result Amount"
+msgstr "Recalcular resultado"
 
 #. module: account_budget_oca_usability
-#: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.view_crossovered_budget_line_search
-msgid "Budgetary Position"
-msgstr "Posición Presupuestaria"
-
-#. module: account_budget_oca_usability
-#: model:ir.actions.act_window,name:account_budget_oca_usability.act_crossovered_budget_lines2_view
-#: model:ir.ui.menu,name:account_budget_oca_usability.menu_act_crossovered_budget_line_view
-msgid "Budgets lines"
-msgstr "Líneas presupuestarias"
-
-#. module: account_budget_oca_usability
-#: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.view_crossovered_budget_line_search
-msgid "Group By"
-msgstr "Agrupar por"
-
-#. module: account_budget_oca_usability
-#: model:ir.model.fields,field_description:account_budget_oca_usability.field_crossovered_budget_lines__difference
-msgid "Difference"
-msgstr "Diferencia"
-
+#: model:ir.model.fields,field_description:account_budget_oca_usability.field_crossovered_budget_lines__result_amount
+msgid "Result Amount"
+msgstr "Resultado"

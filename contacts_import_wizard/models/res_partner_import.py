@@ -25,7 +25,6 @@ class ResPartnerImport(models.Model):
         string="Company",
         index=True,
     )
-    search_by_ref = fields.Boolean(string="Search By Reference", default=False)
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -70,15 +69,15 @@ class ResPartnerImport(models.Model):
                     "partner_street": partner_street,
                     "partner_street2": partner_street2,
                     "partner_zip": convert2str(partner_zip),
-                    "partner_city": convert2str(partner_city).title(),
-                    "partner_state": convert2str(partner_state).title(),
-                    "partner_country": convert2str(partner_country).title(),
+                    "partner_city": partner_city.title(),
+                    "partner_state": partner_state.title(),
+                    "partner_country": partner_country.title(),
                     "partner_phone": convert2str(partner_phone),
                     "partner_mobile": convert2str(partner_mobile),
                     "partner_email": partner_email,
                     "partner_website": partner_website,
                     "partner_comment": partner_comment,
-                    "partner_function": convert2str(partner_function),
+                    "partner_function": partner_function,
                     "partner_company_type": partner_company_type,
                     "log_info": log_info,
                 }
@@ -92,13 +91,12 @@ class ResPartnerImport(models.Model):
     def button_open_partner(self):
         self.ensure_one()
         contacts = self.mapped("import_line_ids.partner_id")
-        action = self.env.ref("contacts.action_contacts")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [[("id", "in", contacts.ids)], safe_eval(action.domain or "[]")]
+        action = self.env["ir.actions.actions"]._for_xml_id("contacts.action_contacts")
+        action["domain"] = expression.AND(
+            [[("id", "in", contacts.ids)], safe_eval(action.get("domain") or "[]")]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        action["context"] = dict(self._context, create=False)
+        return action
 
 
 class ResPartnerImportLine(models.Model):
@@ -217,6 +215,12 @@ class ResPartnerImportLine(models.Model):
     )
     partner_mobile = fields.Char(
         string="Mobile",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    partner_is_company = fields.Boolean(
+        string="Is a Company",
+        default=False,
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -373,8 +377,6 @@ class ResPartnerImportLine(models.Model):
             search_domain = expression.OR(
                 [[("vat", "=", self.partner_vat)], search_domain]
             )
-        if self.import_id.search_by_ref and self.partner_ref:
-            search_domain = [("ref", "=", self.partner_ref)]
         if self.import_id.company_id:
             search_domain = expression.AND(
                 [
@@ -515,11 +517,11 @@ class ResPartnerImportLine(models.Model):
 
     def _update_partner(self):
         self.ensure_one()
-        contact = self.partner_id
-        contact.with_company(self.import_id.company_id).with_context(
+        values = self._partner_values()
+        self.partner_id.with_company(self.import_id.company_id).with_context(
             no_vat_validation=True
-        ).write(self._partner_values())
-        return contact, ""
+        ).write(values)
+        return self.partner_id, ""
 
     def _partner_values(self):
         return {
@@ -552,7 +554,10 @@ class ResPartnerImportLine(models.Model):
         for record in self:
             record.partner_country_id = record.partner_state_id.country_id
 
-    @api.onchange("partner_zip_id")
-    def onchange_partner_zip_id(self):
-        for record in self:
-            record.partner_city_id = record.partner_zip_id.city_id
+    def action_open_form(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "contacts_import_wizard.res_partner_import_line_form_action"
+        )
+        action["res_id"] = self.id
+        return action

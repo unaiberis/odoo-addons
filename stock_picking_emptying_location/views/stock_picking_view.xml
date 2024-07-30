@@ -8,7 +8,7 @@
             <header position="inside">
                 <button
           name="button_empty_location"
-          attrs="{'invisible': ['|', ('show_empty_location', '=', False), ('state', 'in', ('done', 'cancel'))]}"
+          attrs="{'invisible': ['|', ('show_empty_location', '=', False), ('state', '!=', 'draft')]}"
           string="Unload"
           type="object"
           class="oe_highlight"

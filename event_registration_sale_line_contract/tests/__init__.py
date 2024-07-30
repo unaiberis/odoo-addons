@@ -1,1 +1,0 @@
-from . import test_event_registration_sale_line_contract

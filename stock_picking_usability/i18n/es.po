@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-11 08:48+0000\n"
-"PO-Revision-Date: 2024-06-11 08:48+0000\n"
+"POT-Creation-Date: 2023-09-25 10:00+0000\n"
+"PO-Revision-Date: 2023-09-25 10:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,62 +16,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_picking_usability
-#: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_view_form
-msgid "<span class=\"o_stat_text\">Detailed Operations</span>"
-msgstr "<span class=\"o_stat_text\">Operaciones detalladas</span>"
+#: model:ir.model,name:stock_picking_usability.model_stock_backorder_confirmation
+msgid "Backorder Confirmation"
+msgstr "Confirmación de entrega parcial"
 
 #. module: stock_picking_usability
-#: model:ir.model,name:stock_picking_usability.model_res_config_settings
-msgid "Config Settings"
-msgstr "Opciones de configuración"
+#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_backorder_confirmation__warning_not_all_send
+msgid "Not all send"
+msgstr "No enviado todo"
 
 #. module: stock_picking_usability
-#: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings__group_detailed_operations_visible
-msgid "Detailed Operations Always Visible in Pickings"
-msgstr "Operaciones detalladas siempre visibles en albaranes"
-
-#. module: stock_picking_usability
-#: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_config_settings_form_view
-msgid "Detailed operations always visible."
-msgstr "Operaciones detalladas siempre visibles."
-
-#. module: stock_picking_usability
-#: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking__display_name
-msgid "Display Name"
-msgstr "Nombre mostrado"
-
-#. module: stock_picking_usability
-#: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings__id
-#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking__id
-msgid "ID"
-msgstr "Identificador"
-
-#. module: stock_picking_usability
-#: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
-
-#. module: stock_picking_usability
-#: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_view_form
-msgid "List view of detailed operations"
-msgstr "Vista de lista de operaciones detalladas"
-
-#. module: stock_picking_usability
-#: model_terms:ir.ui.view,arch_db:stock_picking_usability.view_stock_move_line_kanban
-msgid "Lot:"
-msgstr "Lote:"
-
-#. module: stock_picking_usability
-#: model_terms:ir.ui.view,arch_db:stock_picking_usability.view_stock_move_line_kanban
-msgid "Quantity:"
-msgstr "Cantidad:"
-
-#. module: stock_picking_usability
-#: model:res.groups,name:stock_picking_usability.group_detailed_operations_visible
-msgid "Show Always Detailed Operations"
-msgstr "Mostrar siempre las operaciones detalladas"
+#. odoo-python
+#: code:addons/stock_picking_usability/models/stock_picking.py:0
+#, python-format
+msgid "Product: {}, quantity not send: {}"
+msgstr "Producto: {}, cantidad no enviada: {}"
 
 #. module: stock_picking_usability
 #: model:ir.model,name:stock_picking_usability.model_stock_picking

@@ -1,1 +1,0 @@
-from . import wiz_automatic_material_in_sale_order

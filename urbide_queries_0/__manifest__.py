@@ -1,0 +1,15 @@
+{
+    "name": "urbide_queries_0",
+    "version": "16.0.1.0.0",
+    "category": "Tools",
+    "summary": "Module to execute custom SQL queries on installation and update",
+    "author": "Avanzosc",
+    "license": "AGPL-3",
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "license": "AGPL-3",
+    "depends": [],
+    "data": [],
+    "installable": True,
+    "application": False,
+    "post_init_hook": "post_init_hook",
+}

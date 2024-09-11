@@ -32,12 +32,11 @@
           name="groups"
         >product_cost_visible.group_product_cost_visible</attribute>
             </field>
-            <field name="cost_price" position="attributes">
+            <field name="standard_price" position="attributes">
                 <attribute
           name="groups"
         >product_cost_visible.group_commercial_permissions</attribute>
             </field>
-
         </field>
     </record>
 </odoo>

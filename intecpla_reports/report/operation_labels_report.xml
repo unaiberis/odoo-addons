@@ -99,18 +99,19 @@
         </t>
     </template>
 
-    <report
-    id="action_report_purchase_order_operation_label"
-    string="Operation labels"
-    model="purchase.order"
-    report_type="qweb-pdf"
-    name="intecpla_reports.report_purchaseorder_operation_label"
-    file="intecpla_reports.report_purchaseorder_operation_label"
-    print_report_name="
-                ('Operation Labels - %s' % (object.name))"
-  />
-
     <record id="action_report_purchase_order_operation_label" model="ir.actions.report">
+        <field name="name">Operation labels</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >intecpla_reports.report_purchaseorder_operation_label</field>
+        <field
+      name="report_file"
+    >intecpla_reports.report_purchaseorder_operation_label</field>
+        <field name="print_report_name">'Operation Labels - %s' % (object.name))</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order" />
+        <field name="binding_type">report</field>
         <field
       name="paperformat_id"
       ref="intecpla_reports.report_paperformat_purchaseorder_operation_labels"

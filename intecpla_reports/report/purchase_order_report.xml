@@ -87,23 +87,33 @@
                 </div>
             </div>
         </h2>
-
+        <table class="table table-sm mt-4" position="attributes">
+            <attribute
+        name="class"
+      >table table-sm o_main_table table-borderless mt-4</attribute>
+        </table>
+        <xpath expr="//th[@name='th_description']/.." position="attributes">
+            <attribute name="style">border-top: 1px solid black !important;</attribute>
+        </xpath>
+        <th name="th_description" position="attributes">
+            <attribute name="class">text-start</attribute>
+        </th>
         <xpath expr="//table/thead/tr/th[3]" position="after">
-            <th class="text-right">
+            <th class="text-end">
                 <strong>Price</strong>
             </th>
-            <th class="text-right">
+            <th class="text-end">
                 <strong>Amount</strong>
             </th>
         </xpath>
         <xpath expr="//table/thead/tr/th[1]" position="before">
-            <th class="text-left">
+            <th class="text-start">
                 <strong>Code</strong>
             </th>
         </xpath>
 
         <xpath expr="//table/tbody//tr/t/td[3]" position="replace">
-            <td class="text-right" style="font-size: 13px;">
+            <td class="text-end" style="font-size: 13px;">
                 <span t-field="order_line.product_qty" />
                 <span t-field="order_line.product_uom" groups="uom.group_uom" />
             </td>
@@ -114,22 +124,22 @@
             </td>
         </xpath>
         <xpath expr="//table/tbody//tr/t/td[1]" position="replace">
-            <td style="font-size: 13px;">
+            <td class="text-start" style="font-size: 13px;">
                 <span t-if="order_line.description_to_print">
                     <span t-field="order_line.description_to_print" />
                 </span>
             </td>
         </xpath>
         <xpath expr="//table/tbody//tr/t/td[3]" position="after">
-            <td class="text-right" style="font-size: 13px;">
+            <td class="text-end" style="font-size: 13px;">
                 <span t-field="order_line.price_unit" />
             </td>
-            <td class="text-right" style="font-size: 13px;">
+            <td class="text-end" style="font-size: 13px;">
                 <span t-field="order_line.price_subtotal" />
             </td>
         </xpath>
         <xpath expr="//table/tbody//tr/t/td[1]" position="before">
-            <td class="text-left" style="font-size: 13px;">
+            <td class="text-start" style="font-size: 13px;">
                 <span t-field="order_line.my_product_code" />
             </td>
         </xpath>
@@ -142,7 +152,7 @@
                             <td>
                                 <strong>Subtotal</strong>
                             </td>
-                            <td class="text-right">
+                            <td class="text-end">
                                 <span
                   t-field="o.amount_untaxed"
                   t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
@@ -151,7 +161,7 @@
                         </tr>
                         <tr>
                             <td>Taxes</td>
-                            <td class="text-right">
+                            <td class="text-end">
                                 <span
                   t-field="o.amount_tax"
                   t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
@@ -162,7 +172,7 @@
                             <td>
                                 <strong>Total</strong>
                             </td>
-                            <td class="text-right">
+                            <td class="text-end">
                                 <span
                   t-field="o.amount_total"
                   t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
@@ -272,28 +282,34 @@
             </div>
         </div>
 
+        <xpath expr="//th[@name='th_description']/.." position="attributes">
+            <attribute name="style">border-top: 1px solid black; !important;</attribute>
+        </xpath>
 
+        <th name="th_description" position="attributes">
+            <attribute name="class">text-start</attribute>
+        </th>
         <xpath expr="//table[1]/tbody//tr/t/td[3]" position="replace">
             <td class="text-center" style="font-size: 13px;">
                 <span t-field="line.date_planned_without_hour" />
             </td>
         </xpath>
         <xpath expr="//table[1]/tbody//tr/t/td[4]" position="replace">
-            <td class="text-right" style="font-size: 13px;">
+            <td class="text-end" style="font-size: 13px;">
                 <span t-field="line.product_qty" />
                 <span t-field="line.product_uom.name" groups="uom.group_uom" />
             </td>
         </xpath>
         <xpath expr="//table[1]/tbody//tr/t/td[5]" position="replace">
-            <td class="text-right" style="font-size: 13px;">
+            <td class="text-end" style="font-size: 13px;">
                 <span t-field="line.price_unit" />
             </td>
         </xpath>
         <xpath expr="//table[1]/tbody//tr/t/td[6]" position="replace">
-            <td class="text-right" style="font-size: 13px;">
+            <td class="text-end" style="font-size: 13px;">
                 <span t-field="line.discount" />
             </td>
-            <td class="text-right" style="font-size: 13px;">
+            <td class="text-end" style="font-size: 13px;">
                 <span
           t-field="line.price_subtotal"
           t-options='{"widget": "monetary", "display_currency": o.currency_id}'
@@ -302,7 +318,7 @@
         </xpath>
 
         <xpath expr="//table[1]/thead/tr/th[6]" position="before">
-            <th class="text-right">
+            <th class="text-end">
                 <strong>Disc. (%)</strong>
             </th>
         </xpath>
@@ -311,15 +327,15 @@
         <xpath expr="//table[1]/tbody//tr/t/td[2]" position="replace" />
 
         <xpath expr="//table[1]/thead/tr/th[1]" position="before">
-            <th class="text-left">
+            <th class="text-start">
                 <strong>Code</strong>
             </th>
         </xpath>
         <xpath expr="//table[1]/tbody//tr/t/td[1]" position="replace">
-            <td class="text-left" style="font-size: 13px;">
+            <td class="text-start" style="font-size: 13px;">
                 <span t-field="line.my_product_code" />
             </td>
-            <td style="font-size: 13px;">
+            <td class="text-start" style="font-size: 13px;">
                 <span t-if="line.description_to_print">
                     <span t-field="line.description_to_print" />
                 </span>

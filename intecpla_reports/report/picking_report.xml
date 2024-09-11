@@ -1,149 +1,83 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="report_picking_inh_intecpla" inherit_id="stock.report_picking">
-        <t t-call="web.external_layout" position="attributes">
-            <attribute
-        name="t-call"
-      >intecpla_reports.external_layout_picking</attribute>
-        </t>
-        <div class="row justify-content-end mb16" position="replace" />
-        <div class="page" position="before">
-            <t t-set="address">
-                <br />
-                <br />
-                <div>
-                    <strong t-field="o.partner_id.name" />
-                </div>
-                <span t-field="o.partner_id.street" />
-                <br />
-                <span t-field="o.partner_id.zip" />
-                <span t-field="o.partner_id.city" />
-                <span t-esc="o.partner_id.get_state_name()" />
-                <br />
-                <span t-field="o.partner_id.country_id.name" />
-            </t>
-            <t t-set="information_block">
-                <div>
-                    <strong t-field="o.company_id.partner_id.name" />
-                </div> VAT: <span t-field="o.company_id.partner_id.vat" />
-                <br />
-                <span t-field="o.company_id.partner_id.street" />
-                <br />
-                <span t-field="o.company_id.partner_id.zip" />
-                <span t-field="o.company_id.partner_id.city" />
-                <span t-esc="o.company_id.partner_id.get_state_name()" />
-                <br />
-                <span t-field="o.company_id.partner_id.country_id.name" />
-                <br /> Phone: <span t-field="o.company_id.partner_id.phone" />
-                <br />
-                <span t-field="o.company_id.partner_id.email" />
-                <br />
-                <span t-field="o.company_id.partner_id.website" />
-            </t>
-        </div>
-        <div class="row" position="replace">
-            <div class="oe_structure" />
-        </div>
-        <h1 t-field="o.name" position="replace" />
-        <table class="table table-sm" position="replace">
-            <div class="row mt32 mb32" id="informations">
-                <div t-if="o.scheduled_date" class="col-auto mw-100 mb-2">
-                    <strong>Scheduled Date:</strong>
-                    <p class="m-0" t-field="o.scheduled_date" />
-                </div>
-                <div class="col-auto mw-100 mb-2">
-                    <strong>Picking:</strong>
-                    <p class="m-0" t-field="o.name" />
-                </div>
-                <div class="col-auto mw-100 mb-2">
-                    <strong>state:</strong>
-                    <p class="m-0" t-field="o.state" />
-                </div>
-                <div t-if="o.origin" class="col-auto mw-100 mb-2">
-                    <strong>Origin:</strong>
-                    <p class="m-0" t-field="o.origin" />
-                </div>
-                <div
-          t-if="o.picking_type_id.code=='incoming' and o.partner_id.ref"
-          class="col-auto mw-100 mb-2"
-        >
-                    <strong>Supplier:</strong>
-                    <p class="m-0" t-field="o.partner_id.ref" />
-                </div>
-                <div
-          t-if="o.picking_type_id.code=='outgoing' and o.partner_id.ref"
-          class="col-auto mw-100 mb-2"
-        >
-                    <strong>Customer:</strong>
-                    <p class="m-0" t-field="o.partner_id.ref" />
-                </div>
-                <div t-if="o.partner_id.vat" class="col-auto mw-100 mb-2">
-                    <strong>VAT:</strong>
-                    <p class="m-0" t-field="o.partner_id.vat" />
-                </div>
-                <div t-if="o.partner_id.phone" class="col-auto mw-100 mb-2">
-                    <strong>Phone:</strong>
-                    <p class="m-0" t-field="o.partner_id.phone" />
-                </div>
-            </div>
-        </table>
-        <xpath expr='//table[1]/thead/tr/th[1]' position='before'>
-            <th
-        name="th_code"
-        t-if="o.picking_type_id.code=='outgoing'"
-        class="text-left"
-      >Code</th>
-        </xpath>
-        <xpath expr='//table[1]/tbody//span[1]/..' position="replace">
+
+    <template
+    id="stock_report_delivery_has_serial_move_line_inh_intecpla"
+    inherit_id="stock.stock_report_delivery_has_serial_move_line"
+  >
+        <xpath expr='//span[@t-field="move_line.product_id"]/..' position="replace">
             <td
-        name="td_product_code"
-        t-if="o.picking_type_id.code=='outgoing'"
-        class="text-left"
+        t-if="o.picking_type_code == 'outgoing'"
         style="font-size: 13px;"
+        class="text-start"
       >
-                <span t-if="ml.product_id.alternative_sales_code">
-                    <span t-field="ml.product_id.alternative_sales_code" />
+                <span t-if="move_line.move_id.product_id.alternative_sales_code">
+                    <span
+            t-field="move_line.move_id.product_id.alternative_sales_code"
+          />
                 </span>
                 <span
-          t-if="not ml.product_id.alternative_sales_code and ml.product_id.default_code"
+          t-if="not move_line.move_id.product_id.alternative_sales_code and move_line.move_id.product_id.default_code"
         >
-                    <span t-field="ml.product_id.default_code" />
+                    <span t-field="move_line.move_id.product_id.default_code" />
                 </span>
             </td>
-            <td t-if="o.picking_type_id.code !='outgoing'" style="font-size: 13px;">
-                <span t-field="ml.product_id.display_name" />
-                <br />
-                <br />
-                <span t-field="ml.product_id.description_picking" />
-            </td>
-            <td t-if="o.picking_type_id.code =='outgoing'" style="font-size: 13px;">
-                <span t-if="ml.product_id.name2">
-                    <span t-field="ml.product_id.name2" />
-                </span>
-                <span t-if="not ml.product_id.name2">
-                    <span t-field="ml.product_id.name" />
-                </span>
+            <td style="font-size: 13px;" class="text-start">
+                <p t-if="o.picking_type_code != 'outgoing'">
+                    <span t-field="move_line.move_id.product_id" />
+                </p>
+                <p t-if="o.picking_type_code == 'outgoing'">
+                    <span t-if="move_line.move_id.product_id.name2">
+                        <span t-field="move_line.move_id.product_id.name2" />
+                    </span>
+                    <span t-if="not move_line.move_id.product_id.name2">
+                        <span t-field="move_line.move_id.product_id.name" />
+                    </span>
+                </p>
+                <p t-if="o.picking_type_code == 'incoming'">
+                    <span
+            t-field="move_line.move_id.product_id.sudo().description_pickingin"
+          />
+                </p>
             </td>
         </xpath>
+        <xpath expr='//span[@t-field="move_line.lot_id.name"]/..' position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+            <attribute name="class">text-end</attribute>
+        </xpath>
+        <td name="move_line_lot_qty_done" position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+            <attribute name="class">text-end</attribute>
+        </td>
+    </template>
 
-        <xpath expr="//table[1]/tbody//tr[1]/td[1]" position="attributes">
+    <template
+    id="stock_report_delivery_aggregated_move_lines_inh_intecpla"
+    inherit_id="stock.stock_report_delivery_aggregated_move_lines"
+  >
+        <td name="move_line_aggregated_qty_ordered" position="attributes">
             <attribute name="style">font-size: 13px;</attribute>
+            <attribute name="class">text-end</attribute>
+        </td>
+        <td name="move_line_aggregated_qty_done" position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+            <attribute name="class">text-end</attribute>
+        </td>
+        <xpath expr='//td[1]' position="replace">
+            <td
+        t-if="o.picking_type_code == 'outgoing'"
+        style="font-size: 13px;"
+        class="text-start"
+      >
+                <span t-esc="aggregated_lines[line]['code']" />
+            </td>
+            <td style="font-size: 13px;">
+                <span t-esc="aggregated_lines[line]['name']" />
+                <p t-if="aggregated_lines[line]['description']">
+                    <span t-esc="aggregated_lines[line]['description']" />
+                </p>
+            </td>
         </xpath>
-        <xpath expr="//table[1]/tbody//tr[1]/td[2]" position="attributes">
-            <attribute name="style">font-size: 13px;</attribute>
-        </xpath>
-        <xpath expr="//table[1]/tbody//tr[1]/td[3]" position="attributes">
-            <attribute name="style">font-size: 13px;</attribute>
-        </xpath>
-        <xpath expr="//table[1]/tbody//tr[1]/td[4]" position="attributes">
-            <attribute name="style">font-size: 13px;</attribute>
-        </xpath>
-        <xpath expr="//table[1]/tbody//tr[1]/td[5]" position="attributes">
-            <attribute name="style">font-size: 13px;</attribute>
-        </xpath>
-        <!-- <xpath expr="//table[1]/tbody//tr[1]/td[6]" position="attributes">
-            <attribute name="style">font-size: 13px;</attribute>
-         </xpath> -->
     </template>
 
     <template
@@ -155,9 +89,10 @@
         name="t-call"
       >intecpla_reports.external_layout_picking</attribute>
         </t>
-        <div name="partner_header" position="replace" />
+        <t t-set="information_block" position="replace" />
         <h2 position="replace" />
-        <table class="table table-sm" position="replace">
+        <xpath expr='//div[@name="div_origin"]/..' position="replace" />
+        <t t-set="address" position="replace">
             <t t-set="address">
                 <br />
                 <br />
@@ -232,37 +167,64 @@
                     <p class="m-0" t-field="o.partner_id.phone" />
                 </div>
             </div>
+        </t>
+        <table name="stock_move_table" position="attributes">
+            <attribute
+        name="class"
+      >table table-sm o_main_table table-borderless mt-4</attribute>
         </table>
-        <xpath expr='//table[@class="table table-sm mt48"]//th[1]' position="replace">
-            <th
-        name="th_code"
-        t-if="o.picking_type_id.code =='outgoing'"
-        class="text-left"
-      >
-                <strong>Code</strong>
-            </th>
-            <th>
-                <strong>Product</strong>
-            </th>
+        <xpath expr='//table[@name="stock_move_table"]/thead/tr' position="attributes">
+            <attribute name="style">border-top: 1px solid black !important;</attribute>
         </xpath>
+        <table name="stock_move_line_table" position="attributes">
+            <attribute
+        name="class"
+      >table table-sm o_main_table table-borderless mt-4</attribute>
+        </table>
         <xpath
-      expr='//t[@t-if="o.backorder_ids and backorders"]/table/tbody//tr/td[1]'
+      expr='//table[@name="stock_move_line_table"]/thead/tr'
       position="attributes"
     >
-            <attribute name="style">font-size: 13px;</attribute>
+            <attribute name="style">border-top: 1px solid black !important;</attribute>
         </xpath>
-        <!-- <xpath expr="//table/tbody/tr/td[2]" position="attributes">
-            <attribute name="style">font-size: 13px;</attribute>
-         </xpath>
-         <xpath expr="//table/tbody/tr/td[3]" position="attributes">
-            <attribute name="style">font-size: 13px;</attribute>
-         </xpath> -->
-        <xpath expr='//span[@t-field="bo_line.product_id"]/..' position="replace">
+        <table name="stock_backorder_table" position="attributes">
+            <attribute
+        name="class"
+      >table table-sm o_main_table table-borderless mt-4</attribute>
+        </table>
+        <xpath
+      expr='//table[@name="stock_backorder_table"]/thead/tr'
+      position="attributes"
+    >
+            <attribute name="style">border-top: 1px solid black !important;</attribute>
+        </xpath>
+        <th name="th_sm_ordered" position="attributes">
+            <attribute name="class">text-end</attribute>
+        </th>
+        <th name="th_sm_quantity" position="attributes">
+            <attribute name="class">text-end</attribute>
+        </th>
+        <xpath expr='//span[@t-field="move.product_uom_qty"]/..' position="attributes">
+            <attribute name="class">text-end</attribute>
+        </xpath>
+        <xpath expr='//span[@t-field="move.quantity_done"]/..' position="attributes">
+            <attribute name="class">text-end</attribute>
+        </xpath>
+        <th name="th_sm_product" position="attributes">
+            <attribute name="class">text-start</attribute>
+        </th>
+        <th name="th_sm_product" position="before">
+            <th
+        class="text-start"
+        name="th_sm_code"
+        t-if="o.picking_type_id.code =='outgoing'"
+      ><strong>Code</strong></th>
+        </th>
+        <xpath expr='//span[@t-field="move.product_id"]/..' position="replace">
             <td
-        name="td_product_code"
-        t-if="o.picking_type_id.code=='outgoing'"
-        class="text-left"
+        t-if="o.picking_type_code == 'outgoing'"
         style="font-size: 13px;"
+        class="text-start"
       >
                 <span t-if="move.product_id.alternative_sales_code">
                     <span t-field="move.product_id.alternative_sales_code" />
@@ -273,7 +235,7 @@
                     <span t-field="move.product_id.default_code" />
                 </span>
             </td>
-            <td style="font-size: 13px;">
+            <td style="font-size: 13px;" class="text-start">
                 <p t-if="o.picking_type_code != 'outgoing'">
                     <span t-field="move.product_id" />
                 </p>
@@ -290,6 +252,95 @@
                 </p>
             </td>
         </xpath>
+        <xpath expr='//span[@t-field="move.product_uom_qty"]/..' position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+        </xpath>
+        <xpath expr='//span[@t-field="move.quantity_done"]/..' position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+        </xpath>
+        <t name="lot_serial" position="replace">
+
+            <t name="lot_serial" t-if="has_serial_number">
+                <th class="text-end">
+                    Lot/Serial Number
+                </th>
+            </t>
+        </t>
+        <th name="th_sml_qty_ordered" position="attributes">
+            <attribute name="class">text-end</attribute>
+        </th>
+        <th name="th_sml_quantity" position="attributes">
+            <attribute name="class">text-end</attribute>
+        </th>
+        <th name="th_sml_product" position="attributes">
+            <attribute name="class">text-start</attribute>
+        </th>
+        <th name="th_sml_product" position="before">
+            <th
+        class="text-start"
+        name="th_sml_code"
+        t-if="o.picking_type_id.code =='outgoing'"
+      ><strong>Code</strong></th>
+        </th>
+
+        <th name="th_sb_quantity" position="attributes">
+            <attribute name="class">text-end</attribute>
+        </th>
+        <xpath
+      expr='//span[@t-field="bo_line.product_uom_qty"]/..'
+      position="attributes"
+    >
+            <attribute name="class">text-end w-auto</attribute>
+        </xpath>
+        <th name="th_sb_product" position="attributes">
+            <attribute name="class">text-start</attribute>
+        </th>
+        <th name="th_sb_product" position="before">
+            <th
+        class="text-start"
+        name="th_sb_code"
+        t-if="o.picking_type_id.code =='outgoing'"
+      ><strong>Code</strong></th>
+        </th>
+        <xpath expr='//span[@t-field="bo_line.product_id"]/..' position="replace">
+            <td
+        t-if="o.picking_type_code == 'outgoing'"
+        style="font-size: 13px;"
+        class="w-auto"
+      >
+                <span t-if="bo_line.product_id.alternative_sales_code">
+                    <span t-field="bo_line.product_id.alternative_sales_code" />
+                </span>
+                <span
+          t-if="not bo_line.product_id.alternative_sales_code and bo_line.product_id.default_code"
+        >
+                    <span t-field="bo_line.product_id.default_code" />
+                </span>
+            </td>
+            <td style="font-size: 13px;" class="w-auto">
+                <p t-if="o.picking_type_code != 'outgoing'">
+                    <span t-field="bo_line.product_id" />
+                </p>
+                <p t-if="o.picking_type_code == 'outgoing'">
+                    <span t-if="bo_line.product_id.name2">
+                        <span t-field="bo_line.product_id.name2" />
+                    </span>
+                    <span t-if="not bo_line.product_id.name2">
+                        <span t-field="bo_line.product_id.name" />
+                    </span>
+                </p>
+                <p t-if="o.picking_type_code == 'incoming'">
+                    <span t-field="bo_line.product_id.sudo().description_pickingin" />
+                </p>
+            </td>
+        </xpath>
+        <xpath
+      expr='//span[@t-field="bo_line.product_uom_qty"]/..'
+      position="attributes"
+    >
+            <attribute name="style">font-size: 13px;</attribute>
+        </xpath>
+
 
         <!-- Esto está cambiado totalmente, hay que revisarlo -->
         <!-- <span t-field="move_line.product_id" position="replace" />
@@ -319,5 +370,175 @@
             <span t-field="move_line.product_id" />
             <span t-field="move_line.product_id.sudo().description_pickingin" />
         </span> -->
+    </template>
+
+
+
+
+    <template id="report_picking_inh_intecpla" inherit_id="stock.report_picking">
+        <t t-call="web.external_layout" position="attributes">
+            <attribute
+        name="t-call"
+      >intecpla_reports.external_layout_picking</attribute>
+        </t>
+        <div class="row justify-content-end mb16" position="replace" />
+        <xpath expr='//div[@name="div_outgoing_address"]/..' position="replace">
+            <t t-set="address">
+                <br />
+                <br />
+                <div>
+                    <strong t-field="o.partner_id.name" />
+                </div>
+                <span t-field="o.partner_id.street" />
+                <br />
+                <span t-field="o.partner_id.zip" />
+                <span t-field="o.partner_id.city" />
+                <span t-esc="o.partner_id.get_state_name()" />
+                <br />
+                <span t-field="o.partner_id.country_id.name" />
+            </t>
+            <t t-set="information_block">
+                <div>
+                    <strong t-field="o.company_id.partner_id.name" />
+                </div> VAT: <span t-field="o.company_id.partner_id.vat" />
+                <br />
+                <span t-field="o.company_id.partner_id.street" />
+                <br />
+                <span t-field="o.company_id.partner_id.zip" />
+                <span t-field="o.company_id.partner_id.city" />
+                <span t-esc="o.company_id.partner_id.get_state_name()" />
+                <br />
+                <span t-field="o.company_id.partner_id.country_id.name" />
+                <br /> Phone: <span
+          t-field="o.company_id.partner_id.phone"
+        /> Fax: <span t-field="o.company_id.partner_id.fax" />
+                <br />
+                <span t-field="o.company_id.partner_id.email" />
+                <br />
+                <span t-field="o.company_id.partner_id.website" />
+            </t>
+        </xpath>
+        <h1 position="replace" />
+        <xpath expr='//div[@name="div_origin"]/..' position="replace">
+
+            <div class="row mt32 mb32" id="informations">
+                <div t-if="o.scheduled_date" class="col-auto mw-100 mb-2">
+                    <strong>Scheduled Date:</strong>
+                    <p class="m-0" t-field="o.scheduled_date" />
+                </div>
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Picking:</strong>
+                    <p class="m-0" t-field="o.name" />
+                </div>
+                <div class="col-auto mw-100 mb-2">
+                    <strong>state:</strong>
+                    <p class="m-0" t-field="o.state" />
+                </div>
+                <div t-if="o.origin" class="col-auto mw-100 mb-2">
+                    <strong>Origin:</strong>
+                    <p class="m-0" t-field="o.origin" />
+                </div>
+                <div
+          t-if="o.picking_type_id.code=='incoming' and o.partner_id.ref"
+          class="col-auto mw-100 mb-2"
+        >
+                    <strong>Supplier:</strong>
+                    <p class="m-0" t-field="o.partner_id.ref" />
+                </div>
+                <div
+          t-if="o.picking_type_id.code=='outgoing' and o.partner_id.ref"
+          class="col-auto mw-100 mb-2"
+        >
+                    <strong>Customer:</strong>
+                    <p class="m-0" t-field="o.partner_id.ref" />
+                </div>
+                <div t-if="o.partner_id.vat" class="col-auto mw-100 mb-2">
+                    <strong>VAT:</strong>
+                    <p class="m-0" t-field="o.partner_id.vat" />
+                </div>
+                <div t-if="o.partner_id.phone" class="col-auto mw-100 mb-2">
+                    <strong>Phone:</strong>
+                    <p class="m-0" t-field="o.partner_id.phone" />
+                </div>
+            </div>
+        </xpath>
+        <table
+      t-if="o.move_line_ids and o.move_ids_without_package"
+      position="attributes"
+    >
+            <attribute
+        name="class"
+      >table table-sm o_main_table table-borderless mt-4</attribute>
+        </table>
+        <xpath
+      expr='//table[@t-if="o.move_line_ids and o.move_ids_without_package"]/thead/tr'
+      position="attributes"
+    >
+            <attribute name="style">border-top: 1px solid black !important;</attribute>
+        </xpath>
+        <th name="th_product" position="attributes">
+            <attribute name="class">text-start</attribute>
+        </th>
+        <th name="th_product" position="before">
+            <th
+        name="th_code"
+        t-if="o.picking_type_id.code=='outgoing'"
+        class="text-start"
+      >
+                <strong>Code</strong>
+            </th>
+        </th>
+        <xpath expr='//span[@t-field="ml.reserved_uom_qty"]/..' position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+        </xpath>
+        <xpath
+      expr='//span[@t-esc="ml.location_id.display_name"]/..'
+      position="attributes"
+    >
+            <attribute name="style">font-size: 13px;</attribute>
+        </xpath>
+        <td t-if="o.picking_type_id.code != 'outgoing'" position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+        </td>
+        <td t-if="has_serial_number" position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+        </td>
+        <td t-if="has_barcode" position="attributes">
+            <attribute name="style">font-size: 13px;</attribute>
+        </td>
+        <xpath
+      expr='//span[@t-field="ml.product_id.display_name"]/..'
+      position="replace"
+    >
+            <td
+        name="td_product_code"
+        t-if="o.picking_type_id.code=='outgoing'"
+        class="text-left"
+        style="font-size: 13px;"
+      >
+                <span t-if="ml.product_id.alternative_sales_code">
+                    <span t-field="ml.product_id.alternative_sales_code" />
+                </span>
+                <span
+          t-if="not ml.product_id.alternative_sales_code and ml.product_id.default_code"
+        >
+                    <span t-field="ml.product_id.default_code" />
+                </span>
+            </td>
+            <td t-if="o.picking_type_id.code !='outgoing'" style="font-size: 13px;">
+                <span t-field="ml.product_id.display_name" />
+                <br />
+                <br />
+                <span t-field="ml.product_id.description_picking" />
+            </td>
+            <td t-if="o.picking_type_id.code =='outgoing'" style="font-size: 13px;">
+                <span t-if="ml.product_id.name2">
+                    <span t-field="ml.product_id.name2" />
+                </span>
+                <span t-if="not ml.product_id.name2">
+                    <span t-field="ml.product_id.name" />
+                </span>
+            </td>
+        </xpath>
     </template>
 </odoo>

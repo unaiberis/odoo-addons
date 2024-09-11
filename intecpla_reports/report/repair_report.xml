@@ -44,9 +44,27 @@
                 <span t-field="o.company_id.partner_id.website" />
             </t>
         </xpath>
-
+        <span t-field="o.lot_id.name" position="replace">
+            <p t-field="o.lot_id.name" />
+        </span>
+        <xpath
+      expr="//table[@class='table table-sm o_main_table']/thead/tr"
+      position="attributes"
+    >
+            <attribute name="style">border-top: 1px solid black !important;</attribute>
+        </xpath>
+        <xpath
+      expr="//table[@class='table table-sm o_main_table']/thead/tr/th[1]"
+      position="attributes"
+    >
+            <attribute name="class">text-start</attribute>
+        </xpath>
+        <table class="table table-sm o_main_table" position="attributes">
+            <attribute
+        name="class"
+      >table table-sm o_main_table table-borderless mt-4</attribute>
+        </table>
         <h2 position="replace" />
-
         <t t-if="o.operations" position="replace">
             <t t-if="o.operations">
                 <tr class="bg-200 o_line_section">
@@ -75,12 +93,12 @@
                             </span>
                         </p>
                     </td>
-                    <td class="text-right" style="font-size: 13px;">
+                    <td class="text-end" style="font-size: 13px;">
                         <span t-field="line.product_uom_qty" />
                         <span groups="uom.group_uom" t-field="line.product_uom.name" />
                     </td>
                     <t t-if="(line.repair_id.invoice_method != 'none')">
-                        <td class="text-right" style="font-size: 13px;">
+                        <td class="text-end" style="font-size: 13px;">
                             <span t-field="line.price_unit" />
                         </td>
                         <td class="text-center" style="font-size: 13px;">
@@ -88,7 +106,7 @@
                 t-esc="','.join(map( lambda x: x.name, line.tax_id))"
               />
                         </td>
-                        <td class="text-right o_price_total" style="font-size: 13px;">
+                        <td class="text-end o_price_total" style="font-size: 13px;">
                             <span
                 t-field="line.price_subtotal"
                 t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'
@@ -109,12 +127,12 @@
                     <td style="font-size: 13px;">
                         <span t-field="fees.name" />
                     </td>
-                    <td class="text-right" style="font-size: 13px;">
+                    <td class="text-end" style="font-size: 13px;">
                         <span t-field="fees.product_uom_qty" />
                         <span groups="uom.group_uom" t-field="fees.product_uom.name" />
                     </td>
                     <t t-if="(fees.repair_id.invoice_method != 'none')">
-                        <td class="text-right" style="font-size: 13px;">
+                        <td class="text-end" style="font-size: 13px;">
                             <span t-field="fees.price_unit" />
                         </td>
                         <td class="text-center" style="font-size: 13px;">
@@ -122,7 +140,7 @@
                 t-esc="','.join(map( lambda x: x.name, fees.tax_id))"
               />
                         </td>
-                        <td class="text-right o_price_total" style="font-size: 13px;">
+                        <td class="text-end o_price_total" style="font-size: 13px;">
                             <span
                 t-field="fees.price_subtotal"
                 t-options='{"widget": "monetary", "display_currency": o.pricelist_id.currency_id}'
@@ -132,6 +150,5 @@
                 </tr>
             </t>
         </t>
-
     </template>
 </odoo>

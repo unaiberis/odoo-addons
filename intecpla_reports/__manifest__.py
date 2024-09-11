@@ -5,7 +5,12 @@
     "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
-        "intecpla_custom",
+        "intecpla_custom_account",
+        "intecpla_custom_product",
+        "intecpla_custom_purchase",
+        "intecpla_custom_repair",
+        "intecpla_custom_sale",
+        "intecpla_custom_stock",
         "account_payment_partner",  # oca
         "web",
         "stock",

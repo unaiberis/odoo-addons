@@ -6,7 +6,7 @@
     "category": "Tools",
     "license": "AGPL-3",
     "summary": "Executes custom SQL queries during module installation and update",
-    "depends": ["base"],
+    "depends": ["base","base_automation","contract"],
     "data": [],
     "installable": True,
     "application": False,

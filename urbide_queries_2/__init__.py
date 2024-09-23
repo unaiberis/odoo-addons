@@ -33,47 +33,47 @@ def remove_files_before_install():
 def _execute_custom_sql(env):
     queries = [
         # Insert into contract_contract from account_analytic_account
-        """INSERT INTO contract_contract (
-            id, partner_id, company_id, message_main_attachment_id,
-            journal_id, contract_template_id, user_id, pricelist_id,
-            recurring_interval, recurring_rule_type, recurring_invoicing_type,
-            name, code, date_start, recurring_next_date,
-            date_end, create_uid, write_uid,
-            create_date, write_date, active, contract_type,
-            invoice_partner_id, commercial_partner_id, generation_type
-        )
-        SELECT
-            aa.id, aa.partner_id, aa.company_id, aa.message_main_attachment_id,
-            aa.journal_id, aa.contract_template_id, aa.user_id, aa.pricelist_id,
-            aa.recurring_interval, aa.recurring_rule_type, aa.recurring_invoicing_type,
-            aa.name, aa.code, aa.date_start, aa.recurring_next_date,
-            aa.date_end, aa.create_uid, aa.write_uid,
-            aa.create_date, aa.write_date, aa.active, aa.type AS contract_type,
-            p.id AS invoice_partner_id, p.commercial_partner_id, 'sale' AS generation_type
-        FROM
-            account_analytic_account aa
-        JOIN
-            res_partner p ON aa.partner_id = p.id
-        WHERE NOT EXISTS (
-            SELECT 1
-            FROM contract_contract cc
-            WHERE cc.id = aa.id
-        );""",
+        # """INSERT INTO contract_contract (
+        #     id, partner_id, company_id, message_main_attachment_id,
+        #     journal_id, contract_template_id, user_id, pricelist_id,
+        #     recurring_interval, recurring_rule_type, recurring_invoicing_type,
+        #     name, code, date_start, recurring_next_date,
+        #     date_end, create_uid, write_uid,
+        #     create_date, write_date, active, contract_type,
+        #     invoice_partner_id, commercial_partner_id, generation_type
+        # )
+        # SELECT
+        #     aa.id, aa.partner_id, aa.company_id, aa.message_main_attachment_id,
+        #     aa.journal_id, aa.contract_template_id, aa.user_id, aa.pricelist_id,
+        #     aa.recurring_interval, aa.recurring_rule_type, aa.recurring_invoicing_type,
+        #     aa.name, aa.code, aa.date_start, aa.recurring_next_date,
+        #     aa.date_end, aa.create_uid, aa.write_uid,
+        #     aa.create_date, aa.write_date, aa.active, aa.type AS contract_type,
+        #     p.id AS invoice_partner_id, p.commercial_partner_id, 'sale' AS generation_type
+        # FROM
+        #     account_analytic_account aa
+        # JOIN
+        #     res_partner p ON aa.partner_id = p.id
+        # WHERE NOT EXISTS (
+        #     SELECT 1
+        #     FROM contract_contract cc
+        #     WHERE cc.id = aa.id
+        # );""",
         # Update product_template fields
-        """UPDATE product_template
-        SET nutrition_details = TRUE,
-            ingredients_details = TRUE,
-            allergy_details = TRUE;""",
+        # """UPDATE product_template
+        # SET nutrition_details = TRUE,
+        #     ingredients_details = TRUE,
+        #     allergy_details = TRUE;""",
         # Update ingredients_information
-        """UPDATE product_template pt
-        SET ingredients_information = COALESCE(
-            (SELECT pp.ingredient_name->>'en_US'
-                FROM product_product pp
-                WHERE pp.product_tmpl_id = pt.id),
-        '');""",
+        # """UPDATE product_template pt
+        # SET ingredients_information = COALESCE(
+        #     (SELECT pp.ingredient_name->>'en_US'
+        #         FROM product_product pp
+        #         WHERE pp.product_tmpl_id = pt.id),
+        # '');""",
         # """ALTER TABLE ir_cron DROP CONSTRAINT IF EXISTS ir_cron_ir_actions_server_id_fkey;""",
-        """DELETE FROM ir_cron WHERE ir_actions_server_id = 748;""",
-        """DELETE FROM ir_cron WHERE ir_actions_server_id = 735;""",
+        # """DELETE FROM ir_cron WHERE ir_actions_server_id = 748;""",
+        # """DELETE FROM ir_cron WHERE ir_actions_server_id = 735;""",
         # """DELETE FROM ir_cron WHERE ir_actions_server_id = 734;""",
         # """DELETE FROM ir_cron WHERE ir_actions_server_id = 737;""",
         #         """ALTER TABLE ir_cron
@@ -84,16 +84,16 @@ def _execute_custom_sql(env):
         # FROM pg_constraint
         # WHERE conrelid = 'ir_cron'::regclass;
         #         """,
-        """DELETE FROM date_range WHERE type_id = 1;""",
-        """ALTER TABLE res_partner DROP CONSTRAINT IF EXISTS res_partner_zip_id_fkey;""",
-        """UPDATE res_partner SET zip_id = NULL WHERE zip_id NOT IN (SELECT id FROM res_city);""",
+        # """DELETE FROM date_range WHERE type_id = 1;""",
+        # """ALTER TABLE res_partner DROP CONSTRAINT IF EXISTS res_partner_zip_id_fkey;""",
+        # """UPDATE res_partner SET zip_id = NULL WHERE zip_id NOT IN (SELECT id FROM res_city);""",
         # """ALTER TABLE res_partner ADD CONSTRAINT res_partner_zip_id_fkey FOREIGN KEY (zip_id) REFERENCES res_city(id) ON DELETE SET NULL;""",
-        """-- UPDATE para quitar error move_type_custom, sent y state (Undefined reading relation)
-            UPDATE base_automation
-            SET filter_domain = ''
-            WHERE filter_domain LIKE '%move_type_custom%';
-        """,
-        """DELETE FROM ir_filters where domain ilike '%var_template_id%';""",
+        # """-- UPDATE para quitar error move_type_custom, sent y state (Undefined reading relation)
+        #     UPDATE base_automation
+        #     SET filter_domain = ''
+        #     WHERE filter_domain LIKE '%move_type_custom%';
+        # """,
+        # """DELETE FROM ir_filters where domain ilike '%var_template_id%';""",
     ]
 
     for query in queries:
@@ -329,7 +329,7 @@ def create_products(env):
         _logger.debug(
             "Buscando producto existente para plantilla ID: %s", product_template.id
         )
-
+        product = False
         if not existing_product:
             product = env["product.product"].create(
                 {
@@ -340,9 +340,9 @@ def create_products(env):
         else:
             _logger.warning("Producto existente encontrado: %s", existing_product.id)
 
-        products[data["name"].upper()] = product.id
+        products[data["name"].upper()] = product.id if product and hasattr(product, 'id') else False
         _logger.info(
-            "Producto %s almacenado con ID: %s", data["name"].upper(), product.id
+            "Producto %s almacenado", data["name"].upper()
         )
 
     _logger.info("Productos creados: %s", list(products.keys()))
@@ -444,7 +444,7 @@ def post_init_hook(cr, registry):
 
     try:
         _logger.info("Removing files before install...")
-        remove_files_before_install()
+        # remove_files_before_install()
     except Exception as e:
         _logger.error(f"Error removing files before install: {e}")
 
@@ -462,7 +462,8 @@ def post_init_hook(cr, registry):
 
     for wizard in wizards:
         try:
-            execute_wizard_action_and_purge(wizard)
+            # execute_wizard_action_and_purge(wizard)
+            _logger.info("Importing nutrition data...")
         except Exception as e:
             _logger.error(f"Error processing wizard {wizard}: {e}")
 

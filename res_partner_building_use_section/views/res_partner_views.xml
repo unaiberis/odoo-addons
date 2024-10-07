@@ -7,7 +7,7 @@
             <page name="internal_notes" position="after">
                 <page name="customer_building" string="Building">
                     <group>
-                        <group string="Building Details">
+                        <group name="building_details" string="Building Details">
                             <field name="building_use_id" />
                             <field name="service_start_date" />
                             <field name="service_end_date" />
@@ -21,7 +21,7 @@
                             <field name="evacuation_height" />
                             <field name="configuration" />
                         </group>
-                        <group string="Contractor">
+                        <group name="contractor_details" string="Contractor">
                             <field name="administrator_id" />
                             <field name="installer_id" />
                             <field name="installer_epi" />
@@ -29,14 +29,17 @@
                             <field name="maintainer_id" />
                             <field name="maintainer_emi" />
                         </group>
-                        <group string="Project">
+                        <group name="project_details" string="Project">
                             <field name="project_title" />
                             <field name="project_author_id" />
                             <field name="project_author_degree" />
                             <field name="project_author_license" />
                             <field name="project_approved_date" />
                         </group>
-                        <group string="Certificate of Final Work Direction">
+                        <group
+              name="dof_details"
+              string="Certificate of Final Work Direction"
+            >
                             <field name="dof_author_id" />
                             <field name="dof_author_degree" />
                             <field name="dof_author_license" />

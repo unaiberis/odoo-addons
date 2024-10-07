@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="acta_view_tree" model="ir.ui.view">
+        <field name="name">acta.view.tree</field>
+        <field name="model">acta</field>
+        <field name="arch" type="xml">
+            <tree string="Actas" editable="bottom" sample="1">
+                <field name="name" optional="show" />
+                <field name="inspected_building_id" optional="show" />
+                <field name="acta_number" optional="show" />
+                <field name="inspection_start_date" optional="show" />
+                <field name="inspection_end_date" optional="show" />
+                <field name="inspection_type" optional="show" />
+                <field name="inspector_id" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_partner_form_inherit_acta" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.acta</field>
+        <field name="model">res.partner</field>
+        <field
+      name="inherit_id"
+      ref="res_partner_building_use_section.view_partner_form"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='building_details']" position="inside">
+                    <field
+          name="acta_ids"
+          context="{'default_inspected_building_id': id}"
+        />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="acta_action" model="ir.actions.act_window">
+        <field name="name">Actas</field>
+        <field name="res_model">acta</field>
+        <field name="view_id" ref="acta_view_tree" />
+    </record>
+
+    <menuitem
+    id="menu_actas"
+    name="Actas"
+    parent="survey.menu_surveys"
+    action="survey_building_use_section.acta_action"
+    sequence="110"
+  />
+
+</odoo>

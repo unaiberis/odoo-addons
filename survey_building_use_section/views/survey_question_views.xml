@@ -42,7 +42,13 @@
           widget="many2many_tags"
           domain="[('id', 'in', related_article_filter_ids)]"
         />
-                <field name="notes" />
+        <button
+          name="action_open_normatives_wizard"
+          type="object"
+          icon="fa-list"
+          title="Show Article List"
+        />
+                    <field name="notes" />
             </xpath>
         </field>
     </record>

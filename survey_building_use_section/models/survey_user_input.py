@@ -89,6 +89,10 @@ class SurveyUserInput(models.Model):
         related="inspected_building_id.installation_number",
     )
     act_number = fields.Char()
+    acta_id = fields.Many2one(
+        "acta",
+        string="Act",
+    )
     inspection_start_date = fields.Datetime()
     inspection_end_date = fields.Datetime()
     inspector_id = fields.Many2one(
@@ -208,3 +212,83 @@ class SurveyUserInput(models.Model):
             "url": url,
             "target": "self",
         }
+
+    def action_duplicate_survey_user_input(self):
+        survey_user_input_line_obj = self.env["survey.user_input.line"]
+
+        if not self:
+            active_ids = self.env.context.get("active_ids", [])
+            if not active_ids:
+                _logger.error("No records found in self or active_ids")
+                return False
+            user_inputs = self.env["survey.user_input"].browse(active_ids)
+        else:
+            user_inputs = self
+
+        for user_input in user_inputs:
+            _logger.info("Duplicating survey user input ID: %s", user_input.id)
+            new_user_input = None
+            try:
+                new_user_input = user_input.copy(
+                    {
+                        "state": "new",
+                    }
+                )
+                _logger.info(
+                    "Successfully created new survey user input with ID: %s from original ID: %s",
+                    new_user_input.id,
+                    user_input.id,
+                )
+            except Exception as e:
+                _logger.error(
+                    "Error duplicating survey user input ID: %s. Error: %s",
+                    user_input.id,
+                    e,
+                )
+                continue
+
+            if new_user_input:
+                try:
+                    related_lines = survey_user_input_line_obj.search(
+                        [("user_input_id", "=", user_input.id)]
+                    )
+                    _logger.info(
+                        "Found %s related lines for survey user input ID: %s",
+                        len(related_lines),
+                        user_input.id,
+                    )
+
+                    for line in related_lines:
+                        try:
+                            new_line = line.copy({"user_input_id": new_user_input.id})
+                            _logger.info(
+                                "Successfully duplicated survey user input line ID: %s as new ID: %s for user input ID: %s",
+                                line.id,
+                                new_line.id,
+                                new_user_input.id,
+                            )
+                        except Exception as e:
+                            _logger.error(
+                                "Error duplicating survey user input line ID: %s for user input ID: %s. Error: %s",
+                                line.id,
+                                user_input.id,
+                                e,
+                            )
+                except Exception as e:
+                    _logger.error(
+                        "Error searching for related lines for survey user input ID: %s. Error: %s",
+                        user_input.id,
+                        e,
+                    )
+
+            if new_user_input and len(user_inputs) == 1:
+                return {
+                    "type": "ir.actions.act_window",
+                    "name": "Survey User Input",
+                    "res_model": "survey.user_input",
+                    "view_mode": "form",
+                    "res_id": new_user_input.id,
+                    "target": "current",
+                }
+
+        return True

@@ -57,8 +57,10 @@
                 <p>
                     <span
             style="font-weight: bold;"
-          >CERTIFICA: </span> que en fecha  <span t-field="o.inspection_start_date" />
- el inspector que suscribe el Acta  <span t-field="o.act_number" />
+          >CERTIFICA: </span> que en fecha  <span
+            t-field="o.acta_id.inspection_start_date"
+          />
+ el inspector que suscribe el Acta  <span t-field="o.acta_id.acta_number" />
    ha realizado la inspección periódica de la instalación con las siguientes características</p>
         </t>
 
@@ -556,13 +558,13 @@
             <div class="row" style="border: 1px solid #ccc;margin-top: -1px;">
                 <div style="width: 40%;">
                     <span style="font-weight: bold;">TIPO DE INSPECCION:  </span>
-                    <span t-field="o.inspection_type" />
+                    <span t-field="o.acta_id.inspection_type" />
                 </div>
                 <div style="width: 30%;border-left: 1px solid #ccc">
                     <span style="font-weight: bold;">FECHA:  </span>
-                    <span t-field="o.inspection_start_date" />
+                    <span t-field="o.acta_id.inspection_start_date" />
                     <span> al </span>
-                    <span t-field="o.inspection_end_date" />
+                    <span t-field="o.acta_id.inspection_end_date" />
                 </div>
                 <div style="width: 30%; border-left: 1px solid #ccc;">
                     <span style="font-weight: bold;">EQUIPOS:  </span>

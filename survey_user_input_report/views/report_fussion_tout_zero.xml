@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <template id="report_fussion_tout_zero" name="Fussion Tout Zero">
+    <t t-out="0" />
+    <t t-foreach="o.survey_report_fussion" t-as="o">
+      <t t-out="0" />
+    </t>
+  </template>
+</odoo>

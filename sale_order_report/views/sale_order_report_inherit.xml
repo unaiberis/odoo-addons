@@ -42,9 +42,10 @@
             </xpath>
 
             <!-- Eliminar el comercial -->
-            <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2' and strong[text()='Salesperson:']]" position="replace">
+            <xpath expr="//div[@id='informations']/div[4]" position="attributes">
+                <attribute name="t-if">False</attribute>
             </xpath>
-
+  
             <xpath expr="//p[@t-field='doc.date_order']" position="attributes">
                 <attribute name="style">font-size: 16px;</attribute>
             </xpath>

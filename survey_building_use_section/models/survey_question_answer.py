@@ -45,10 +45,13 @@ class SurveyQuestionAnswer(models.Model):
             record.related_article_filter_ids = [(6, 0, related_articles.ids)]
 
     def action_open_normatives_wizard(self):
+        article_ids = self.question_article_ids.ids
+        
         return {
             "type": "ir.actions.act_window",
             "name": "Survey Question Articles",
             "res_model": "survey.question.article",
             "view_mode": "tree",
             "target": "new",
+            "domain": [('id', 'in', article_ids)],
         }

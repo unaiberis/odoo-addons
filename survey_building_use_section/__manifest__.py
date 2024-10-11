@@ -28,6 +28,7 @@
         "views/survey_user_input_line_views.xml",
         "views/survey_survey_views.xml",
         "views/installed_equipment_views.xml",
+        "views/invisible_normative_filter.xml",
     ],
     "installable": True,
     "assets": {

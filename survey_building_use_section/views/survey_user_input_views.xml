@@ -10,11 +10,6 @@
       <notebook position="before">
         <group>
           <group string="Building">
-            <field
-              name="acta_id"
-              domain="[('inspected_building_id', '=', inspected_building_id)]"
-            />
-
             <field name="inspected_building_id" />
             <field
               name="building_use_id"
@@ -84,7 +79,7 @@
               name="file_number"
               attrs="{'invisible':[('inspected_building_id', '=', False)]}"
             />
-            <field name="act_number" />
+            <field name="acta_number" />
             <field name="acta_id" />
             <!-- <field name="equipment_ids" widget="many2many_tags"/> -->
             <field
@@ -180,7 +175,7 @@
         <field name="area" optional="show" />
         <field name="configuration" optional="show" />
         <field name="file_number" optional="hide" />
-        <field name="act_number" optional="hide" />
+        <field name="acta_number" optional="hide" />
         <field name="acta_id" optional="hide" />
 
         <field name="inspection_start_date" optional="show" />
@@ -201,7 +196,7 @@
         <field name="building_section_id" />
         <field name="risk" />
         <field name="file_number" />
-        <field name="act_number" />
+        <field name="acta_number" />
         <field name="acta_id" />
         <field name="inspection_start_date" />
         <field name="inspection_end_date" />

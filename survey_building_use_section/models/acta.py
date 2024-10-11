@@ -9,7 +9,6 @@ class Acta(models.Model):
         "res.partner", required=True, string="Building"
     )
     acta_number = fields.Char()
-    name = fields.Char()
     inspection_start_date = fields.Date()
     inspection_end_date = fields.Date()
     inspection_type = fields.Selection(

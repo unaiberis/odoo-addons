@@ -5,7 +5,6 @@
         <field name="model">acta</field>
         <field name="arch" type="xml">
             <tree string="Actas" editable="bottom" sample="1">
-                <field name="name" optional="show" />
                 <field name="inspected_building_id" optional="show" />
                 <field name="acta_number" optional="show" />
                 <field name="inspection_start_date" optional="show" />

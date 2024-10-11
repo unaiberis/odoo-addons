@@ -88,23 +88,24 @@ class SurveyUserInput(models.Model):
         string="Installation Number",
         related="inspected_building_id.installation_number",
     )
-    act_number = fields.Char()
     acta_id = fields.Many2one(
         "acta",
         string="Act",
     )
-    inspection_start_date = fields.Datetime()
-    inspection_end_date = fields.Datetime()
+    acta_number = fields.Char(
+        related="acta_id.acta_number",
+    )
+    inspection_start_date = fields.Date(
+        related="acta_id.inspection_start_date",
+    )
+    inspection_end_date = fields.Date(
+        related="acta_id.inspection_end_date",
+    )
     inspector_id = fields.Many2one(
-        "res.partner",
-        string="Inspector",
+        related="acta_id.inspector_id",
     )
     inspection_type = fields.Selection(
-        [
-            ("periodic", "Periodic"),
-            ("volunteer", "Volunteer"),
-            ("correction_of_deficiencies", "Correction of Deficiencies"),
-        ],
+        related="acta_id.inspection_type",
     )
     date_deficiency_correction = fields.Date()
     next_inspection_date = fields.Date()

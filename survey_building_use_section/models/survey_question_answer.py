@@ -32,6 +32,11 @@ class SurveyQuestionAnswer(models.Model):
         compute="_compute_related_article_filter_ids",
         store=True,
     )
+    answer_normative_id = fields.Many2one(
+        "survey.question.normative",
+        string="Answer Normative",
+        default=False,
+    )
 
     @api.depends(
         "matrix_question_id.question_normative_ids.related_article_ids",
@@ -46,12 +51,12 @@ class SurveyQuestionAnswer(models.Model):
 
     def action_open_normatives_wizard(self):
         article_ids = self.question_article_ids.ids
-        
+
         return {
             "type": "ir.actions.act_window",
             "name": "Survey Question Articles",
             "res_model": "survey.question.article",
             "view_mode": "tree",
             "target": "new",
-            "domain": [('id', 'in', article_ids)],
+            "domain": [("id", "in", article_ids)],
         }

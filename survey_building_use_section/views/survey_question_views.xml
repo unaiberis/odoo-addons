@@ -20,6 +20,16 @@
             attrs="{'invisible': [('is_normative_filter', '=', False)]}"
           />
                     <field name="is_normative_filter" colspan="2" readonly="1" />
+                    <button
+            name="update_normative_filter_answers"
+            type="object"
+            colspan="2"
+            string="Update Normative Filter Answers"
+            icon="fa-refresh"
+            class="btn-primary"
+            attrs="{'invisible': [('is_normative_filter', '=', False)]}"
+          />
+
                 </group>
             </notebook>
             <xpath
